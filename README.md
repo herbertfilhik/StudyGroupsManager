@@ -3,6 +3,7 @@
 ## Topics
 - [Overview](#overview)
 - [Test Strategy](#test-strategy)
+- [Test Cases](#test-cases)
 - [Acceptance Criteria](#acceptance-criteria)
 - [Getting Started](#getting-started)
 
@@ -20,6 +21,32 @@ The study group feature introduces a new entity, `StudyGroups`, into the applica
 - **Automated Tests**: Written using the NUnit framework, automated tests cover both unit and component levels, emphasizing robustness and regression readiness.
 - **SQL Query Validation**: A specific SQL query retrieves all study groups with at least one user whose name starts with 'M', sorted by creation date, demonstrating backend data handling.
 - **Documentation and Reporting**: Comprehensive documentation in Word/Excel formats, coupled with the use of GitLab/GitHub for code sharing and review, facilitates transparency and collaboration.
+
+## Test Cases
+
+### Study Group Creation
+- **Steps**: Attempt to create a group with a valid name, select a subject, and verify creation.
+- **Inputs**: Group name (5-30 characters), subject (Math, Chemistry, Physics).
+- **Level**: Unit for validation logic, Component for repository interaction, E2E for UI process.
+- **Regression**: Yes.
+
+### Joining an Existing Group
+- **Steps**: User attempts to join an existing group.
+- **Inputs**: User ID, study group ID.
+- **Level**: Component, Manual E2E to check the UI.
+- **Regression**: Yes.
+
+### Viewing and Filtering Groups
+- **Steps**: User views all groups and applies a filter by subject.
+- **Inputs**: Subject for filtering.
+- **Level**: Manual E2E.
+- **Regression**: Optional.
+
+### Exiting a Study Group
+- **Steps**: User exits a study group.
+- **Inputs**: User ID, study group ID.
+- **Level**: Component, Manual E2E.
+- **Regression**: Yes.
 
 ## Acceptance Criteria
 
