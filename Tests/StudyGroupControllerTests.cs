@@ -16,8 +16,8 @@ namespace StudyGroupsManager.Tests
 
         [SetUp]
         public void Setup()
-        {
-            // Inicializa o mock antes de cada teste
+        {            
+            // Initiate mock before each test
             _mockRepository = new Mock<IStudyGroupRepository>();
             _controller = new StudyGroupController(_mockRepository.Object);
         }
@@ -26,7 +26,7 @@ namespace StudyGroupsManager.Tests
         public async Task CreateStudyGroup_WhenCalled_ShouldReturnOk()
         {
             // Arrange
-            var studyGroup = new StudyGroup(1, "Grupo de Matemática", Subject.Math, DateTime.Now, new List<User>());
+            var studyGroup = new StudyGroup(1, "Math Group", Subject.Math, DateTime.Now, new List<User>());
 
             _mockRepository.Setup(repo => repo.CreateStudyGroup(It.IsAny<StudyGroup>()))
                            .Returns(Task.CompletedTask);
@@ -44,8 +44,8 @@ namespace StudyGroupsManager.Tests
             // Arrange
             var studyGroups = new List<StudyGroup>
             {
-                new StudyGroup(1, "Grupo de Matemática", Subject.Math, DateTime.Now, new List<User>())
-                // Adicione mais grupos de estudo conforme necessário
+                new StudyGroup(1, "Math Group", Subject.Math, DateTime.Now, new List<User>())                
+                // Add more study groups as necessary
             };
 
             _mockRepository.Setup(repo => repo.GetStudyGroups())
@@ -57,12 +57,12 @@ namespace StudyGroupsManager.Tests
 
             // Assert
             var objectResult = result as OkObjectResult;
-            Assert.IsNotNull(objectResult, "O resultado não é do tipo OkObjectResult.");
+            Assert.IsNotNull(objectResult, "The result is not OkObjectResult type.");
 
             var model = objectResult.Value as IEnumerable<StudyGroup>;
-            Assert.IsNotNull(model, "O valor não é do tipo IEnumerable<StudyGroup>.");
+            Assert.IsNotNull(model, " The value is not IEnumerable<StudyGroup> type.");
 
-            Assert.AreEqual(studyGroups.Count, model.Count(), "A contagem dos grupos de estudo não corresponde.");
+            Assert.AreEqual(studyGroups.Count, model.Count(), "The count of the study groups does not match.");
 
         }
 
@@ -71,7 +71,7 @@ namespace StudyGroupsManager.Tests
         {
             // Arrange
             var subject = Subject.Math;
-            var filteredStudyGroups = new List<StudyGroup> { new StudyGroup(1, "Grupo de Matemática", subject, DateTime.Now, new List<User>()) };
+            var filteredStudyGroups = new List<StudyGroup> { new StudyGroup(1, "Math Group", subject, DateTime.Now, new List<User>()) };
             _mockRepository.Setup(repo => repo.SearchStudyGroups(It.Is<string>(s => s == subject.ToString())))
                            .ReturnsAsync(filteredStudyGroups);
 
@@ -114,10 +114,11 @@ namespace StudyGroupsManager.Tests
             Assert.IsInstanceOf<OkResult>(result);
         }
 
-        // Os testes para verificar a ordenação dos grupos de estudo podem ser mais complexos e requerem um mock mais detalhado.
-        // Isso pode envolver a ordenação dos dados retornados pelo repositório mockado ou a verificação dos parâmetros usados
-        // para chamar o método do repositório que realiza a ordenação.
+        // The tests to verify the sorting of the study groups can be more complex and require a more detailed mock.
+        // This may involve sorting the data returned by the mocked repository or verifying the parameters used
+        // to call the repository method that performs the sorting.
 
-        // Implemente testes adicionais para adesão, visualização e saída de grupos conforme necessário
+        // Implement additional tests for joining, viewing, and leaving groups as necessary.
+
     }
 }

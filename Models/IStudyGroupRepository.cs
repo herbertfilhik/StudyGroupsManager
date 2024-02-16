@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace StudyGroupsManager.Models
 {
     public interface IStudyGroupRepository
@@ -14,6 +9,6 @@ namespace StudyGroupsManager.Models
         Task JoinStudyGroup(int studyGroupId, int userId);
         Task LeaveStudyGroup(int studyGroupId, int userId);
 
-        // Adicione outros métodos necessários aqui
+        // Add other methods here if necessary
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
+﻿
 namespace StudyGroupsManager.Models
 {
     public class StudyGroup
@@ -18,8 +12,8 @@ namespace StudyGroupsManager.Models
             {
                 throw new ArgumentException($"O nome do grupo deve ter entre {MinNameLength} e {MaxNameLength} caracteres.");
             }
-
-            // Verifique se o assunto é válido, se necessário
+                        
+            // Verify if the subject is valid
             if (!Enum.IsDefined(typeof(Subject), subject))
             {
                 throw new ArgumentException("Assunto inválido.");
@@ -29,10 +23,11 @@ namespace StudyGroupsManager.Models
             Name = name;
             Subject = subject;
             CreateDate = createDate;
-            Users = users ?? new List<User>(); // Adiciona um null-check para evitar NullReferenceException
-
+            Users = users ?? new List<User>();
         }
+
         //Some logic will be missing to validate values according to acceptance criteria, but imagine it is existing or do it yourself
+        
         public int StudyGroupId { get; }
 
         public string Name { get; }
