@@ -53,7 +53,7 @@ The study group feature introduces a new entity, `StudyGroups`, into the applica
 
 To retrieve all StudyGroups with at least one user whose name starts with 'M' and sort them by creation date, the following SQL query can be used:
 
-```sql
+``sql
 SELECT DISTINCT sg.* FROM StudyGroups sg
 JOIN Users u ON sg.StudyGroupId = u.StudyGroupId
 WHERE u.Name LIKE 'M%'
