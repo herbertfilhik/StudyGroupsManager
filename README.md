@@ -2,11 +2,11 @@
 
 ## Topics
 - [Overview](#overview)
+- [Acceptance Criteria](#acceptance-criteria)
 - [Test Strategy](#test-strategy)
 - [Test Cases](#test-cases)
 - [Automated Tests Implementation](#automated-tests-implementation)
 - [SQL Query for StudyGroups Retrieval](#sql-query-for-studygroups-retrieval)
-- [Acceptance Criteria](#acceptance-criteria)
 - [Executing Tests](#executing-tests)
 - [Getting Started](#getting-started)
 
@@ -17,6 +17,15 @@ The study group feature introduces a new entity, `StudyGroups`, into the applica
 - **Unit Testing**: Validates the internal logic of the `StudyGroups` entity and related business rules.
 - **Component Testing**: Ensures the API controller interacts correctly with the repository, supporting operations like group creation, membership management, and data retrieval.
 - **E2E Testing (Manual)**: Focuses on the user interface and real-world use cases, confirming that users can effortlessly navigate the feature to create and participate in study groups.
+
+## Acceptance Criteria
+
+The project's success hinges on fulfilling key user capabilities:
+
+1. Creating a single study group per subject.
+2. Joining multiple study groups for different subjects.
+3. Browsing and filtering existing study groups.
+4. Exiting study groups as needed.
 
 ## Test Strategy
 
@@ -74,15 +83,6 @@ SELECT DISTINCT sg.* FROM StudyGroups sg
 JOIN Users u ON sg.StudyGroupId = u.StudyGroupId
 WHERE u.Name LIKE 'M%'
 ORDER BY sg.CreateDate;
-
-## Acceptance Criteria
-
-The project's success hinges on fulfilling key user capabilities:
-
-1. Creating a single study group per subject.
-2. Joining multiple study groups for different subjects.
-3. Browsing and filtering existing study groups.
-4. Exiting study groups as needed.
 
 ## Executing Tests
 
