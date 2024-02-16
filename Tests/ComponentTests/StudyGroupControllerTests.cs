@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace StudyGroupsManager.Tests
+namespace StudyGroupsManager.Tests.ComponentTests
 {
     [TestFixture]
     public class StudyGroupControllerTests
@@ -16,7 +16,7 @@ namespace StudyGroupsManager.Tests
 
         [SetUp]
         public void Setup()
-        {            
+        {
             // Initiate mock before each test
             _mockRepository = new Mock<IStudyGroupRepository>();
             _controller = new StudyGroupController(_mockRepository.Object);

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudyGroupsManager.Tests
+namespace StudyGroupsManager.Tests.UnitTests
 {
     [TestFixture]
     public class StudyGroupTests
