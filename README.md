@@ -4,6 +4,7 @@
 - [Overview](#overview)
 - [Test Strategy](#test-strategy)
 - [Test Cases](#test-cases)
+- [SQL Query for StudyGroups Retrieval](#sql-query-for-studygroups-retrieval)
 - [Acceptance Criteria](#acceptance-criteria)
 - [Getting Started](#getting-started)
 
@@ -47,6 +48,16 @@ The study group feature introduces a new entity, `StudyGroups`, into the applica
 - **Inputs**: User ID, study group ID.
 - **Level**: Component, Manual E2E.
 - **Regression**: Yes.
+
+## SQL Query for StudyGroups Retrieval
+
+To retrieve all StudyGroups with at least one user whose name starts with 'M' and sort them by creation date, the following SQL query can be used:
+
+```sql
+SELECT DISTINCT sg.* FROM StudyGroups sg
+JOIN Users u ON sg.StudyGroupId = u.StudyGroupId
+WHERE u.Name LIKE 'M%'
+ORDER BY sg.CreateDate;
 
 ## Acceptance Criteria
 
