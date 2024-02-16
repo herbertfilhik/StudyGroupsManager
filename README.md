@@ -4,6 +4,7 @@
 - [Overview](#overview)
 - [Test Strategy](#test-strategy)
 - [Test Cases](#test-cases)
+- [Automated Tests Implementation](#automated-tests-implementation)
 - [SQL Query for StudyGroups Retrieval](#sql-query-for-studygroups-retrieval)
 - [Acceptance Criteria](#acceptance-criteria)
 - [Getting Started](#getting-started)
@@ -48,6 +49,20 @@ The study group feature introduces a new entity, `StudyGroups`, into the applica
 - **Inputs**: User ID, study group ID.
 - **Level**: Component, Manual E2E.
 - **Regression**: Yes.
+
+## Automated Tests Implementation
+
+To write the automated tests described, we use NUnit to create unit and component tests verifying the business logic of the application and the API integration, respectively. Manual E2E tests are documented separately, detailing steps for direct interaction with the user interface.
+
+### Unit Tests for StudyGroup Class
+
+Unit tests verify the addition and removal of users, as well as the validation of the group's name and subject. Each unit test focuses on a specific aspect of the StudyGroup functionality, using assertions to validate expected outcomes.
+
+### Component Tests for StudyGroupController
+
+Component tests examine the integration between the API methods and the repository, such as group creation, joining, viewing, and leaving groups. These tests ensure that the StudyGroupController interacts correctly with the underlying database through the repository.
+
+Each automated test focuses on a specific aspect of the functionality, utilizing assertions to validate the expected results. For specific examples of implementing these tests within the context of your application, we recommend consulting the NUnit documentation.
 
 ## SQL Query for StudyGroups Retrieval
 
