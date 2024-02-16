@@ -1,6 +1,6 @@
 # Web Application Study Group Feature Testing
 
-## Tópicos
+## Topics
 - [Overview](#overview)
 - [Test Strategy](#test-strategy)
 - [Acceptance Criteria](#acceptance-criteria)
