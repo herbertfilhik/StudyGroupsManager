@@ -2,9 +2,9 @@ name: StudyGroupsManager Build and Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -20,10 +20,16 @@ jobs:
         dotnet-version: '8.0.x'
     
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore StudyGroupsManager.csproj
     
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build --no-restore --configuration Release StudyGroupsManager.csproj
     
-    - name: Test
-      run: dotnet test --verbosity normal
+    - name: Test and Generate HTML Report
+      run: dotnet test --no-build --logger "html;LogFileName=test-results.html"
+      
+    - name: Upload Test Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: Test-Report
+        path: TestResults/test-results.html
