@@ -6,8 +6,8 @@
 - [Test Strategy](#test-strategy)
 - [Test Cases](#test-cases)
 - [Automated Tests Implementation](#automated-tests-implementation)
-- [SQL Query for StudyGroups Retrieval](#sql-query-for-studygroups-retrieval)
 - [Executing Tests](#executing-tests)
+- [SQL Query for StudyGroups Retrieval](#sql-query-for-studygroups-retrieval)
 - [Getting Started](#getting-started)
 
 ## Overview
@@ -74,16 +74,6 @@ Component tests examine the integration between the API methods and the reposito
 
 Each automated test focuses on a specific aspect of the functionality, utilizing assertions to validate the expected results. For specific examples of implementing these tests within the context of your application, we recommend consulting the NUnit documentation.
 
-## SQL Query for StudyGroups Retrieval
-
-To retrieve all StudyGroups with at least one user whose name starts with 'M' and sort them by creation date, the following SQL query can be used:
-
-``sql
-SELECT DISTINCT sg.* FROM StudyGroups sg
-JOIN Users u ON sg.StudyGroupId = u.StudyGroupId
-WHERE u.Name LIKE 'M%'
-ORDER BY sg.CreateDate;
-
 ## Executing Tests
 
 ### Executing Tests in Visual Studio
@@ -107,6 +97,16 @@ ORDER BY sg.CreateDate;
 1. Open the Integrated Terminal: In Visual Studio Code, you can open the integrated terminal with the shortcut Ctrl+`.
 2. Navigate to the Project Directory: Similar to the command prompt, use the cd command to navigate to the directory containing your test project.
 3. Execute the Tests: Use the dotnet test command to run the tests.
+
+## SQL Query for StudyGroups Retrieval
+
+To retrieve all StudyGroups with at least one user whose name starts with 'M' and sort them by creation date, the following SQL query can be used:
+
+``sql
+SELECT DISTINCT sg.* FROM StudyGroups sg
+JOIN Users u ON sg.StudyGroupId = u.StudyGroupId
+WHERE u.Name LIKE 'M%'
+ORDER BY sg.CreateDate;
 
 ## Getting Started
 
