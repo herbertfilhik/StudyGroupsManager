@@ -68,7 +68,8 @@ namespace StudyGroupsManager.Tests.UnitTests
             var studyGroup = new StudyGroup(1, validName, Subject.Math, DateTime.Now, new List<User>());
 
             // Act & Assert
-            Assert.AreEqual(validName, studyGroup.Name);
+            //Assert.AreEqual(validName, studyGroup.Name);
+            Assert.That(studyGroup.Name, Is.EqualTo(validName));
         }
 
         [Test]
@@ -79,7 +80,8 @@ namespace StudyGroupsManager.Tests.UnitTests
             var studyGroup = new StudyGroup(1, "Chemistry Group", validSubject, DateTime.Now, new List<User>());
 
             // Act & Assert
-            Assert.AreEqual(validSubject, studyGroup.Subject);
+            //Assert.AreEqual(validSubject, studyGroup.Subject);
+            Assert.That(studyGroup.Subject, Is.EqualTo(validSubject));
         }
 
         [Test]
@@ -90,7 +92,8 @@ namespace StudyGroupsManager.Tests.UnitTests
             var studyGroup = new StudyGroup(1, "Physics Group", Subject.Physics, creationDate, new List<User>());
 
             // Act & Assert
-            Assert.AreEqual(creationDate, studyGroup.CreateDate);
+            //Assert.AreEqual(creationDate, studyGroup.CreateDate);
+            Assert.That(studyGroup.CreateDate, Is.EqualTo(creationDate));
         }
 
         // Add more tests as necessary to name validation, etc

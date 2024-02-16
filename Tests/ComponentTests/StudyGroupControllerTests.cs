@@ -62,7 +62,8 @@ namespace StudyGroupsManager.Tests.ComponentTests
             var model = objectResult.Value as IEnumerable<StudyGroup>;
             Assert.IsNotNull(model, " The value is not IEnumerable<StudyGroup> type.");
 
-            Assert.AreEqual(studyGroups.Count, model.Count(), "The count of the study groups does not match.");
+            //Assert.AreEqual(studyGroups.Count, model.Count(), "The count of the study groups does not match.");
+            Assert.That(model.Count(), Is.EqualTo(studyGroups.Count), "The count of the study groups does not match.");
 
         }
 
@@ -83,7 +84,8 @@ namespace StudyGroupsManager.Tests.ComponentTests
             Assert.IsNotNull(objectResult);
             var returnedGroups = objectResult.Value as IEnumerable<StudyGroup>;
             Assert.IsNotNull(returnedGroups);
-            Assert.AreEqual(filteredStudyGroups.Count, returnedGroups.Count());
+            //Assert.AreEqual(filteredStudyGroups.Count, returnedGroups.Count());
+            Assert.That(returnedGroups.Count(), Is.EqualTo(filteredStudyGroups.Count));
         }
 
         [Test]
