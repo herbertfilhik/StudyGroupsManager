@@ -108,6 +108,18 @@ JOIN Users u ON sg.StudyGroupId = u.StudyGroupId
 WHERE u.Name LIKE 'M%'
 ORDER BY sg.CreateDate;
 
+## Build and Test CI with GitHub Actions
+
+To build and execute tests, we can use the GitHub Actions pipeline. Follow the steps below or make new commits to trigger automatic pipeline execution.
+
+1. Access the StudyGroupsManager repository.
+2. Click on the "Actions" tab.
+3. In the "Workflows" section, click on the "StudyGroupsManager Build and Test" workflow.
+4. Click on "Run workflow".
+5. Select the "main" branch.
+6. Click on "Run workflow".
+7. At the end of the process, we will have a log containing all the build and test processes for the project.
+
 ## Getting Started
 
 For instructions on setting up the testing environment, executing tests, and contributing to this project, please refer to the README.md file.
