@@ -7,6 +7,7 @@
 - [Automated Tests Implementation](#automated-tests-implementation)
 - [SQL Query for StudyGroups Retrieval](#sql-query-for-studygroups-retrieval)
 - [Acceptance Criteria](#acceptance-criteria)
+- [Executing Tests](#executing-tests)
 - [Getting Started](#getting-started)
 
 ## Overview
@@ -82,6 +83,30 @@ The project's success hinges on fulfilling key user capabilities:
 2. Joining multiple study groups for different subjects.
 3. Browsing and filtering existing study groups.
 4. Exiting study groups as needed.
+
+## Executing Tests
+
+### Executing Tests in Visual Studio
+
+1. Open the Solution: Start Visual Studio and open the project's solution file (*.sln) that contains the tests.
+2. Build the Solution: Build the solution to ensure all projects are up-to-date and there are no compilation errors. This can be done by selecting Build > Build Solution from the menu bar.
+3. Test Explorer: Open the Test Explorer in Visual Studio by navigating to Test > Windows > Test Explorer.
+4. Run Tests: In the Test Explorer, you will see a list of all unit tests in the project. You can run all tests by clicking Run All, or execute specific tests by right-clicking on the desired test and selecting Run.
+5. View Results: After the tests have been run, you can view the results in the Test Explorer, including which tests passed and which failed.
+
+### Executing Tests in Visual Studio Code
+
+1. Install .NET Core Test Explorer: Open Visual Studio Code, go to the extensions section, and search for .NET Core Test Explorer. Install the extension.
+2. Open the Project: Open the project folder in Visual Studio Code that contains the tests.
+3. Build the Project: Open the integrated terminal in VS Code (Ctrl+) and execute the command dotnet build` to build the project.
+4. Run Tests: With the .NET Core Test Explorer extension installed and the project built, you should see your tests listed in the Test Explorer sidebar. You can run all tests by clicking the play icon, or run individual tests by right-clicking on the desired test and selecting Run test.
+5. View Results: The test results will be displayed directly in the Test Explorer of VS Code.
+
+### Executing Tests in Visual Studio Code (Using the Integrated Terminal)
+
+1. Open the Integrated Terminal: In Visual Studio Code, you can open the integrated terminal with the shortcut Ctrl+`.
+2. Navigate to the Project Directory: Similar to the command prompt, use the cd command to navigate to the directory containing your test project.
+3. Execute the Tests: Use the dotnet test command to run the tests.
 
 ## Getting Started
 
