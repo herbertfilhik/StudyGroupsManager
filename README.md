@@ -1,6 +1,10 @@
 # Web Application Study Group Feature Testing
 
-This repository contains a comprehensive suite of tests for a new feature in a web application designed for students. The feature allows users to create, join, and interact with study groups dedicated to various subjects. Leveraging NUnit for unit and component testing, alongside detailed manual end-to-end (E2E) scenarios, this project aims to ensure the feature's functionality, reliability, and user experience meet the highest standards.
+## Tópicos
+- [Overview](#overview)
+- [Test Strategy](#test-strategy)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Getting Started](#getting-started)
 
 ## Overview
 
