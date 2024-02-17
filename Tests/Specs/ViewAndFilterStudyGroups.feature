@@ -3,7 +3,6 @@ Feature: Viewing and Filtering Groups
   I want to filter study groups by subject
   So that I can find relevant groups more easily
 
-  @ignore
   Scenario: Filtering study groups by a specific subject
     Given the user is on the Study Groups listing page
     When the user selects a subject from the filter options
