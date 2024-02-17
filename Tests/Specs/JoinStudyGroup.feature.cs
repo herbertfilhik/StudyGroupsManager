@@ -81,16 +81,15 @@ namespace StudyGroupsManager.Tests.Specs
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Joining an existing study group with valid credentials", Skip="Ignored")]
+        [Xunit.SkippableFactAttribute(DisplayName="Joining an existing study group with valid credentials")]
         [Xunit.TraitAttribute("FeatureTitle", "Joining an Existing Group")]
         [Xunit.TraitAttribute("Description", "Joining an existing study group with valid credentials")]
         public void JoiningAnExistingStudyGroupWithValidCredentials()
         {
-            string[] tagsOfScenario = new string[] {
-                    "ignore"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Joining an existing study group with valid credentials", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 6
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -100,19 +99,19 @@ namespace StudyGroupsManager.Tests.Specs
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 7
     testRunner.Given("the user is logged in and on the Study Groups listing page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 8
     testRunner.When("the user selects a study group to join", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 9
     testRunner.And("the user confirms the action", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 11
+#line 10
     testRunner.Then("the user should be added to the selected study group", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 12
+#line 11
     testRunner.And("the user should see a confirmation message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }

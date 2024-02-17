@@ -158,11 +158,12 @@ Each automated test focuses on a specific aspect of the functionality, utilizing
 
 To retrieve all StudyGroups with at least one user whose name starts with 'M' and sort them by creation date, the following SQL query can be used:
 
-``sql
+```sql
 SELECT DISTINCT sg.* FROM StudyGroups sg
 JOIN Users u ON sg.StudyGroupId = u.StudyGroupId
 WHERE u.Name LIKE 'M%'
 ORDER BY sg.CreateDate;
+```
 
 ## Build and Test CI with GitHub Actions
 

@@ -81,16 +81,15 @@ namespace StudyGroupsManager.Tests.Specs
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Exiting a study group", Skip="Ignored")]
+        [Xunit.SkippableFactAttribute(DisplayName="Exiting a study group")]
         [Xunit.TraitAttribute("FeatureTitle", "Exiting a Study Group")]
         [Xunit.TraitAttribute("Description", "Exiting a study group")]
         public void ExitingAStudyGroup()
         {
-            string[] tagsOfScenario = new string[] {
-                    "ignore"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Exiting a study group", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 6
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -100,19 +99,19 @@ namespace StudyGroupsManager.Tests.Specs
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 7
     testRunner.Given("the user is a member of a study group and on the Study Group details page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 8
     testRunner.When("the user clicks the exit group button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 9
     testRunner.And("the user confirms the action", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 11
+#line 10
     testRunner.Then("the user should be removed from the study group", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 12
+#line 11
     testRunner.And("the user should see a confirmation message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }

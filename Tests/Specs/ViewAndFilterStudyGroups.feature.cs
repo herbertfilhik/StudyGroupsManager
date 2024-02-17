@@ -81,16 +81,15 @@ namespace StudyGroupsManager.Tests.Specs
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Filtering study groups by a specific subject", Skip="Ignored")]
+        [Xunit.SkippableFactAttribute(DisplayName="Filtering study groups by a specific subject")]
         [Xunit.TraitAttribute("FeatureTitle", "Viewing and Filtering Groups")]
         [Xunit.TraitAttribute("Description", "Filtering study groups by a specific subject")]
         public void FilteringStudyGroupsByASpecificSubject()
         {
-            string[] tagsOfScenario = new string[] {
-                    "ignore"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Filtering study groups by a specific subject", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 6
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -100,16 +99,16 @@ namespace StudyGroupsManager.Tests.Specs
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 7
     testRunner.Given("the user is on the Study Groups listing page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 8
     testRunner.When("the user selects a subject from the filter options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 9
     testRunner.And("the user applies the filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 11
+#line 10
     testRunner.Then("the list should be updated to show only study groups of that subject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
