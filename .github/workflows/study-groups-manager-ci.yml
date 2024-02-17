@@ -27,25 +27,3 @@ jobs:
     
     - name: Test and Generate Report
       run: dotnet test --verbosity normal --logger html
-
-    - name: Send Test Report Email via Mailsac
-      run: |
-        $body = @{
-          from = "${{ secrets.EMAIL_ADDRESS }}"
-          to = "herbertfilhik@gmail.com"
-          subject = "StudyGroupsManager Test Report"
-          text = "Here is the latest test report of StudyGroupsManager."
-          attachments = @(
-            @{
-              filename = "TestReport.html"
-              content = "$(Get-Content ./TestResults/TestResult_*.html -Raw | Base64 -Encoding Byte)"
-              encoding = "base64"
-            }
-          )
-        } | ConvertTo-Json -Compress
-
-        Invoke-RestMethod -Uri "https://mailsac.com/api/outgoing-messages" -Method Post -Headers @{
-          "Mailsac-Key" = "${{ secrets.API_KEY }}"
-          "Content-Type" = "application/json"
-        } -Body $body
-    shell: pwsh
