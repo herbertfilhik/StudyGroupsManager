@@ -116,6 +116,49 @@ namespace StudyGroupsManager.Tests.ComponentTests
             Assert.IsInstanceOf<OkResult>(result);
         }
 
+        [Test]
+        public async Task CreateStudyGroup_WhenDuplicateSubjectForUser_ShouldReturnBadRequest()
+        {
+            // Arrange
+            var studyGroup = new StudyGroup(1, "Math Group", Subject.Math, DateTime.Now, new List<User>());
+            _mockRepository.Setup(repo => repo.CreateStudyGroup(It.IsAny<StudyGroup>()))
+                           .Throws(new InvalidOperationException("User already has a study group for this subject."));
+
+            // Act
+            var result = await _controller.CreateStudyGroup(studyGroup);
+
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+        }
+
+        [Test]
+        public async Task SearchStudyGroups_WithSubject_ShouldReturnFilteredStudyGroups()
+        {
+            // Arrange
+            var subject = Subject.Math;
+            var filteredStudyGroups = new List<StudyGroup>
+    {
+        new StudyGroup(1, "Math Group", subject, DateTime.Now, new List<User>())
+    };
+            _mockRepository.Setup(repo => repo.SearchStudyGroups(subject.ToString()))
+                           .ReturnsAsync(filteredStudyGroups);
+
+            // Act
+            var result = await _controller.SearchStudyGroups(subject.ToString());
+
+            // Assert
+            var objectResult = result as OkObjectResult;
+            Assert.IsNotNull(objectResult);
+            var returnedGroups = objectResult.Value as IEnumerable<StudyGroup>;
+            Assert.IsNotNull(returnedGroups);
+            Assert.That(returnedGroups, Is.Not.Empty);
+            foreach (var group in returnedGroups)
+            {
+                Assert.That(group.Subject, Is.EqualTo(subject));
+            }
+        }
+
+
         // The tests to verify the sorting of the study groups can be more complex and require a more detailed mock.
         // This may involve sorting the data returned by the mocked repository or verifying the parameters used
         // to call the repository method that performs the sorting.

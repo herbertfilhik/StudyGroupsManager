@@ -96,6 +96,24 @@ namespace StudyGroupsManager.Tests.UnitTests
             Assert.That(studyGroup.CreateDate, Is.EqualTo(creationDate));
         }
 
+        [Test]
+        public void User_CanJoinMultipleStudyGroupsOfDifferentSubjects()
+        {
+            // Arrange
+            var user = new User { Id = 1, Name = "João" };
+            var mathGroup = new StudyGroup(1, "Grupo de Matemática", Subject.Math, DateTime.Now, new List<User>());
+            var chemistryGroup = new StudyGroup(2, "Grupo de Química", Subject.Chemistry, DateTime.Now, new List<User>());
+
+            // Act
+            mathGroup.AddUser(user);
+            chemistryGroup.AddUser(user);
+
+            // Assert
+            Assert.IsTrue(mathGroup.Users.Contains(user), "O usuário deve estar no grupo de matemática.");
+            Assert.IsTrue(chemistryGroup.Users.Contains(user), "O usuário deve estar no grupo de química.");
+        }
+
+
         // Add more tests as necessary to name validation, etc
     }
 

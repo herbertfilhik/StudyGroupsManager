@@ -13,9 +13,17 @@ namespace StudyGroupsManager.Models
 
         public async Task<IActionResult> CreateStudyGroup(StudyGroup studyGroup)
         {
-            await _studyGroupRepository.CreateStudyGroup(studyGroup);
-            return new OkResult();
+            try
+            {
+                await _studyGroupRepository.CreateStudyGroup(studyGroup);
+                return new OkResult();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return new BadRequestObjectResult(ex.Message);
+            }
         }
+
 
         public async Task<IActionResult> GetStudyGroups()
         {
@@ -39,6 +47,27 @@ namespace StudyGroupsManager.Models
         {
             await _studyGroupRepository.LeaveStudyGroup(studyGroupId, userId);
             return new OkResult();
+        }
+
+        public async Task<IActionResult> GetFilteredAndSortedStudyGroups(string subject, bool sortByCreationDateDescending)
+        {
+            var studyGroups = await _studyGroupRepository.GetStudyGroups();
+
+            if (!string.IsNullOrEmpty(subject))
+            {
+                studyGroups = studyGroups.Where(sg => sg.Subject.ToString().Equals(subject, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            if (sortByCreationDateDescending)
+            {
+                studyGroups = studyGroups.OrderByDescending(sg => sg.CreateDate).ToList();
+            }
+            else
+            {
+                studyGroups = studyGroups.OrderBy(sg => sg.CreateDate).ToList();
+            }
+
+            return new OkObjectResult(studyGroups);
         }
     }
 }

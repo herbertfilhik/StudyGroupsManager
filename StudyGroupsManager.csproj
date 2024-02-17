@@ -24,4 +24,8 @@
     <PackageReference Include="SpecFlow.xUnit" Version="3.9.74" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TestResults\" />
+  </ItemGroup>
+
 </Project>
