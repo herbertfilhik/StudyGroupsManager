@@ -60,6 +60,57 @@ The project's success hinges on fulfilling key user capabilities:
 - **Level**: Component, Manual E2E.
 - **Regression**: Yes.
 
+## Gherkin to Manual Test Process
+Feature: Study Group Creation
+  As a user
+  I want to create a study group
+  So that I can collaborate with others on the same subject
+  
+  Scenario: Creating a study group with a valid name and subject
+    Given the user is on the Create Study Group page
+    When the user enters a group name between 5-30 characters and selects a valid subject
+    And the user submits the form
+    Then a new study group should be created
+    And the user should be redirected to the Study Group details page
+
+Feature: Exiting a Study Group
+  As a user
+  I want to exit a study group
+  So that I can leave groups that I am no longer interested in
+
+  @ignore
+  Scenario: Exiting a study group
+    Given the user is a member of a study group and on the Study Group details page
+    When the user clicks the exit group button
+    And the user confirms the action
+    Then the user should be removed from the study group
+    And the user should see a confirmation message
+
+Feature: Joining an Existing Group
+  As a user
+  I want to join an existing study group
+  So that I can participate in group learning activities
+
+  @ignore
+  Scenario: Joining an existing study group with valid credentials
+    Given the user is logged in and on the Study Groups listing page
+    When the user selects a study group to join
+    And the user confirms the action
+    Then the user should be added to the selected study group
+    And the user should see a confirmation message
+
+Feature: Viewing and Filtering Groups
+  As a user
+  I want to filter study groups by subject
+  So that I can find relevant groups more easily
+
+  @ignore
+  Scenario: Filtering study groups by a specific subject
+    Given the user is on the Study Groups listing page
+    When the user selects a subject from the filter options
+    And the user applies the filter
+    Then the list should be updated to show only study groups of that subject
+
 ## Automated Tests Implementation
 
 To write the automated tests described, we use NUnit to create unit and component tests verifying the business logic of the application and the API integration, respectively. Manual E2E tests are documented separately, detailing steps for direct interaction with the user interface.
