@@ -28,15 +28,21 @@ jobs:
     - name: Test and Generate Report
       run: dotnet test --verbosity normal --logger html
 
-    - name: Send Test Report Email
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.mailsac.com
-        server_port: 465
-        username: ${{ secrets.EMAIL_ADDRESS }}
-        password: ${{ secrets.API_KEY }}
-        subject: StudyGroupsManager Test Report
-        to: ${{ secrets.EMAIL_ADDRESS }}
-        from: ${{ secrets.EMAIL_ADDRESS }}
-        body: Here is the latest test report of StudyGroupsManager.
-        attachments: ./TestResults/TestResult_*.html
+    - name: Send Test Report Email via Mailsac
+      run: |
+        curl -X POST "https://mailsac.com/api/outgoing-messages" \
+        -H "Mailsac-Key: ${{ secrets.API_KEY }}" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "from": "${{ secrets.EMAIL_ADDRESS }}",
+          "to": "studygroupsmanager@mailsac.com",
+          "subject": "StudyGroupsManager Test Report",
+          "text": "Here is the latest test report of StudyGroupsManager.",
+          "attachments": [
+            {
+              "filename": "TestReport.html",
+              "content": "$(cat ./TestResults/TestResult_*.html | base64)",
+              "encoding": "base64"
+            }
+          ]
+        }'
