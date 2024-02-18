@@ -1,6 +1,7 @@
 # Web Application Study Group Feature Testing
 
 ## Topics
+- [Understanding the task](#understanding-the-task)
 - [Overview](#overview)
 - [Acceptance Criteria](#acceptance-criteria)
 - [Test Strategy](#test-strategy)
@@ -9,6 +10,10 @@
 - [Executing Tests](#executing-tests)
 - [SQL Query for StudyGroups Retrieval](#sql-query-for-studygroups-retrieval)
 - [Getting Started](#getting-started)
+
+## Understanding the task
+
+![The Task](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/Test%20task_QA.NET_BW.docx)
 
 ## Overview
 
