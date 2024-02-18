@@ -18,7 +18,7 @@ public static class DbInitializer
                 createDate: DateTime.Now,
                 users: new List<User>
                 {
-                    new User { Name = "Maria" },
+                    new User { Name = "Miguel" },
                     new User { Name = "João" }
                 }
             );

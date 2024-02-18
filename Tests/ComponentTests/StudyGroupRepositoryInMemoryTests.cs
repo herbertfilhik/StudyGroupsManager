@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace StudyGroupsManager.Tests.ComponentTests
 {
     [TestFixture]
-    public class StudyGroupRepositoryTests
+    public class StudyGroupRepositoryInMemoryTests
     {
         [Test]
         public async Task GetStudyGroupsWithUserStartingWithM_ShouldReturnCorrectResults()
@@ -23,8 +23,8 @@ namespace StudyGroupsManager.Tests.ComponentTests
             // Inicializa o contexto e o banco de dados em memória
             using (var context = new AppDbContext(options))
             {
-                var user = new User { Name = "Maria" };
-                var studyGroup = new StudyGroup(1, "Grupo M", Subject.Math, DateTime.Now, new List<User>());
+                var user = new User { Name = "Miguel" };
+                var studyGroup = new StudyGroup(4, "Grupo M", Subject.Math, DateTime.Now, new List<User>());
                 studyGroup.AddUser(user);
 
                 context.StudyGroups.Add(studyGroup);

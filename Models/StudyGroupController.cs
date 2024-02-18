@@ -76,5 +76,11 @@ namespace StudyGroupsManager.Models
             var studyGroups = await _studyGroupRepository.GetStudyGroupsWithUserStartingWithM();
             return Ok(studyGroups);
         }
+
+        public async Task<IActionResult> GetStudyGroupsWithUserStartingWithMInMemoryDataBase()
+        {
+            var studyGroups = await _studyGroupRepository.GetStudyGroupsWithUserStartingWithMInMemoryDataBase();
+            return Ok(studyGroups);
+        }
     }
 }

@@ -89,5 +89,25 @@ namespace StudyGroupsManager.Data
                 .Where(sg => sg.Users.Any(u => u.Name.StartsWith("M")))
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<StudyGroup>> GetStudyGroupsWithUserStartingWithMInMemoryDataBase()
+        {
+            // SQL bruto
+            var query = @"
+            SELECT DISTINCT sg.* 
+            FROM StudyGroups sg
+            JOIN Users u ON sg.StudyGroupId = u.StudyGroupId
+            WHERE u.Name LIKE 'M%'
+            ORDER BY sg.CreateDate";
+
+            // Executa a consulta SQL bruta
+            var studyGroups = await _context.StudyGroups
+                .FromSqlRaw(query)
+                .Include(sg => sg.Users) // Pode ser necessário ajustar ou remover, dependendo do suporte do seu provider
+                .ToListAsync();
+
+            return studyGroups;
+        }
+
     }
 }
