@@ -186,6 +186,6 @@ To build and execute tests, we can use the GitHub Actions pipeline. Follow the s
 6. Click on "Run workflow".
 7. At the end of the process, we will have a log containing all the build and test processes for the project.
 
-## Getting Started
+## Help us with StudyGroupManager project evolution
 
 For instructions on setting up the testing environment, executing tests, and contributing to this project, please refer to the README.md file.
