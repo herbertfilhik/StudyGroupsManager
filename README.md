@@ -150,11 +150,15 @@ Each automated test focuses on a specific aspect of the functionality, utilizing
 4. Run Tests: With the .NET Core Test Explorer extension installed and the project built, you should see your tests listed in the Test Explorer sidebar. You can run all tests by clicking the play icon, or run individual tests by right-clicking on the desired test and selecting Run test.
 5. View Results: The test results will be displayed directly in the Test Explorer of VS Code.
 
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_visualcode_exectest.png)
+
 ### Executing Tests in Visual Studio Code (Using the Integrated Terminal)
 
 1. Open the Integrated Terminal: In Visual Studio Code, you can open the integrated terminal with the shortcut Ctrl+`.
 2. Navigate to the Project Directory: Similar to the command prompt, use the cd command to navigate to the directory containing your test project.
 3. Execute the Tests: Use the dotnet test command to run the tests.
+
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_cmd_exectest.png)
 
 ## SQL Query for StudyGroups Retrieval
 
