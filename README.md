@@ -140,6 +140,8 @@ Each automated test focuses on a specific aspect of the functionality, utilizing
 4. Run Tests: In the Test Explorer, you will see a list of all unit tests in the project. You can run all tests by clicking Run All, or execute specific tests by right-clicking on the desired test and selecting Run.
 5. View Results: After the tests have been run, you can view the results in the Test Explorer, including which tests passed and which failed.
 
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_visualstudio_exectest.png)
+
 ### Executing Tests in Visual Studio Code
 
 1. Install .NET Core Test Explorer: Open Visual Studio Code, go to the extensions section, and search for .NET Core Test Explorer. Install the extension.
