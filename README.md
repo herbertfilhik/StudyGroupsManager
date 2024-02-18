@@ -172,6 +172,8 @@ WHERE u.Name LIKE 'M%'
 ORDER BY sg.CreateDate;
 ```
 
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_sqlresul_exectest.png)
+
 ## Build and Test CI with GitHub Actions
 
 To build and execute tests, we can use the GitHub Actions pipeline. Follow the steps below or make new commits to trigger automatic pipeline execution.
