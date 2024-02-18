@@ -13,7 +13,7 @@
 
 ## Understanding the task
 
-![The Task](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/Test%20task_QA.NET_BW.docx)
+[Task](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/Test%20task_QA.NET_BW.docx)
 
 ## Overview
 
