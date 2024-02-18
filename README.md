@@ -142,8 +142,6 @@ Each automated test focuses on a specific aspect of the functionality, utilizing
 
 ![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_visualstudio_exectest.png)
 
-![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_html_exectest.png)
-
 ### Executing Tests in Visual Studio Code
 
 1. Install .NET Core Test Explorer: Open Visual Studio Code, go to the extensions section, and search for .NET Core Test Explorer. Install the extension.
@@ -161,6 +159,7 @@ Each automated test focuses on a specific aspect of the functionality, utilizing
 3. Execute the Tests: Use the dotnet test command to run the tests.
 
 ![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_cmd_exectest.png)
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_html_exectest.png)
 
 ## SQL Query for StudyGroups Retrieval
 
