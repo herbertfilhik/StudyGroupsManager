@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudyGroupsManager.Models
 {
-    public class StudyGroupController
+    public class StudyGroupController : ControllerBase
     {
         private readonly IStudyGroupRepository _studyGroupRepository;
 
@@ -68,6 +69,12 @@ namespace StudyGroupsManager.Models
             }
 
             return new OkObjectResult(studyGroups);
+        }
+
+        public async Task<IActionResult> GetStudyGroupsWithUserStartingWithM()
+        {
+            var studyGroups = await _studyGroupRepository.GetStudyGroupsWithUserStartingWithM();
+            return Ok(studyGroups);
         }
     }
 }

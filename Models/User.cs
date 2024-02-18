@@ -1,11 +1,13 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace StudyGroupsManager.Models
 {
     public class User
     {
         public int Id { get; set; }
-        public required string Name { get; set; }
-                
-        // Add other fields if necessary
+
+        [Required]
+        public string Name { get; set; } = string.Empty;
+
     }
 }
