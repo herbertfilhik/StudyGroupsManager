@@ -87,11 +87,11 @@ namespace StudyGroupsManager.Tests.ComponentTests
                 // Cria 10 usuários com nomes alternados
                 var users = new List<User>
                 {
-                    new User { Id = 1, Name = "Marcia", StudyGroupId = 1 },
+                    new User { Id = 1, Name = "Carlson", StudyGroupId = 1 },
                     new User { Id = 2, Name = "Carlos", StudyGroupId = 2 },
                     new User { Id = 3, Name = "Manuel", StudyGroupId = 1 },
                     new User { Id = 4, Name = "Ana", StudyGroupId = 2 },
-                    new User { Id = 5, Name = "Mariana", StudyGroupId = 1 },
+                    new User { Id = 5, Name = "Carla", StudyGroupId = 1 },
                     new User { Id = 6, Name = "Pedro", StudyGroupId = 2 },
                     new User { Id = 7, Name = "Miguel", StudyGroupId = 1 },
                     new User { Id = 8, Name = "Bianca", StudyGroupId = 2 },
