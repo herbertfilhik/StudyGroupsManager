@@ -142,6 +142,8 @@ Each automated test focuses on a specific aspect of the functionality, utilizing
 
 ![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_visualstudio_exectest.png)
 
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_html_exectest.png)
+
 ### Executing Tests in Visual Studio Code
 
 1. Install .NET Core Test Explorer: Open Visual Studio Code, go to the extensions section, and search for .NET Core Test Explorer. Install the extension.
