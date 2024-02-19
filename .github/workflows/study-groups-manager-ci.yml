@@ -18,14 +18,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '8.0.x'
-    
-    - name: List NuGet cache directory
-      run: |
-        echo "Listing USERPROFILE .nuget/packages:"
-        dir "$env:USERPROFILE\.nuget\packages"
-        echo "Listing LOCALAPPDATA NuGet\Cache:"
-        dir "$env:LOCALAPPDATA\NuGet\Cache"
-
+        
     - name: Cache NuGet Packages
       uses: actions/cache@v2
       with:
@@ -35,9 +28,17 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/StudyGroupsManager.sln', '**/NuGet.config') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
-    
+
     - name: Restore dependencies
       run: dotnet restore
+    
+    # Insira o passo de debug aqui para verificar o caminho do cache
+    - name: Debug - List NuGet cache directory
+      run: |
+        echo "Listing USERPROFILE .nuget/packages:"
+        dir "$env:USERPROFILE\.nuget\packages"
+        echo "Listing LOCALAPPDATA NuGet\Cache:"
+        dir "$env:LOCALAPPDATA\NuGet\Cache"
     
     - name: Build
       run: dotnet build --no-restore --configuration Release
