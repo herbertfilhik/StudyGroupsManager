@@ -165,6 +165,37 @@ namespace StudyGroupsManager.Tests.ComponentTests
             Assert.AreEqual(returnedStudyGroups.Count, studyGroups.Count(sg => sg.Subject == subjectToFilter), "O número de grupos de estudo retornados deve corresponder ao número de grupos filtrados pelo assunto.");
         }
 
+        [Test]
+        public async Task GetStudyGroups_WhenSortedByCreationDate_ShouldReturnStudyGroupsInCorrectOrder()
+        {
+            // Arrange
+            var mockRepository = new Mock<IStudyGroupRepository>();
+            var controller = new StudyGroupController(mockRepository.Object);
+            var studyGroups = new List<StudyGroup>
+    {
+        new StudyGroup(1, "Older Study Group", Subject.Math, DateTime.Now.AddDays(-10), new List<User>()),
+        new StudyGroup(2, "Newer Study Group", Subject.Math, DateTime.Now, new List<User>())
+    };
+
+            // Ordena a lista em ordem decrescente de data de criação antes de configurar o mock
+            var orderedStudyGroups = studyGroups.OrderByDescending(sg => sg.CreateDate).ToList();
+
+            // Configura o mock para retornar os grupos de estudo em ordem de criação quando solicitado
+            mockRepository.Setup(r => r.GetStudyGroupsSortedByCreationDate(It.IsAny<bool>()))
+                          .ReturnsAsync(orderedStudyGroups);
+
+            // Act
+            var result = await controller.GetStudyGroupsSortedByCreationDate(true); // true para ordenação decrescente
+
+            // Assert
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            var returnedStudyGroups = okResult.Value as List<StudyGroup>;
+            Assert.AreEqual(2, returnedStudyGroups.Count);
+            Assert.IsTrue(returnedStudyGroups[0].CreateDate > returnedStudyGroups[1].CreateDate, "Os grupos de estudo não estão ordenados corretamente pela data de criação.");
+        }
+
+
         // Include new tests if necessary
     }
 }

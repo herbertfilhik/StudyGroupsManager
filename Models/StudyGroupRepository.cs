@@ -135,6 +135,17 @@ namespace StudyGroupsManager.Data
             return await _context.StudyGroups.AnyAsync(sg => sg.Users.Any(u => u.Id == userId) && sg.Subject == subject);
         }
 
+        public async Task<IEnumerable<StudyGroup>> GetStudyGroupsSortedByCreationDate(bool descending)
+        {
+            if (descending)
+            {
+                return await _context.StudyGroups.OrderByDescending(sg => sg.CreateDate).ToListAsync();
+            }
+            else
+            {
+                return await _context.StudyGroups.OrderBy(sg => sg.CreateDate).ToListAsync();
+            }
+        }
 
     }
 }

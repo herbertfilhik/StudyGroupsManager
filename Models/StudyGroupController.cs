@@ -107,5 +107,12 @@ namespace StudyGroupsManager.Models
             var studyGroups = await _studyGroupRepository.GetStudyGroupsWithUserStartingWithMInMemoryDataBase();
             return Ok(studyGroups);
         }
+
+        // Método para obter grupos de estudo ordenados por data de criação
+        public async Task<IActionResult> GetStudyGroupsSortedByCreationDate(bool descending)
+        {
+            var studyGroups = await _studyGroupRepository.GetStudyGroupsSortedByCreationDate(descending);
+            return Ok(studyGroups);
+        }
     }
 }

@@ -30,6 +30,7 @@
 
         // Responsable to verify if a user already in studygroup
         Task<bool> UserAlreadyHasGroupForSubject(int userId, Subject subject);
+        Task<IEnumerable<StudyGroup>> GetStudyGroupsSortedByCreationDate(bool descending);
 
 
         // Add other methods here if necessary
