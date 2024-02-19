@@ -19,6 +19,16 @@ jobs:
       with:
         dotnet-version: '8.0.x'
     
+    - name: Cache NuGet Packages
+      uses: actions/cache@v2
+      with:
+        path: |
+          C:\hostedtoolcache\windows\.nuget\packages
+          C:\hostedtoolcache\windows\NuGet\v3-cache
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/StudyGroupsManager.sln', '**/NuGet.config') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+    
     - name: Restore dependencies
       run: dotnet restore
     
