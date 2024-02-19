@@ -14,19 +14,35 @@ namespace StudyGroupsManager.Models
         }
 
         // Action method to create a study group
-        public async Task<IActionResult> CreateStudyGroup(StudyGroup studyGroup)
+        public async Task<IActionResult> CreateStudyGroup(StudyGroupCreationDto studyGroupDto)
         {
             try
             {
-                // Attempt to create the study group
-                await _studyGroupRepository.CreateStudyGroup(studyGroup);
-                return new OkResult(); // Return success
+                // Verifica se o usuário já possui um grupo para o assunto
+                bool userHasGroupForSubject = await _studyGroupRepository.UserAlreadyHasGroupForSubject(studyGroupDto.UserId, studyGroupDto.Subject);
+                if (userHasGroupForSubject)
+                {
+                    return BadRequest("O usuário já possui um grupo de estudo para esse assunto.");
+                }
+
+                // Cria um novo objeto StudyGroup a partir do DTO
+                var newStudyGroup = new StudyGroupCreationDto
+                {
+                    // Atribua os valores do DTO para o novo objeto StudyGroup aqui
+                    Name = studyGroupDto.Name,
+                    Subject = studyGroupDto.Subject,
+                    // Defina os outros campos conforme necessário
+                };
+
+                // Tenta criar o grupo de estudo
+                await _studyGroupRepository.CreateStudyGroup(newStudyGroup);
+                return Ok(); // Retorna sucesso
             }
-            catch (InvalidOperationException ex)
+            catch (Exception ex)
             {
-                return new BadRequestObjectResult(ex.Message); // Return error if creation fails
+                return BadRequest(ex.Message); // Retorna erro se a criação falhar
             }
-        }
+        }    
 
         // Action method to get all study groups
         public async Task<IActionResult> GetStudyGroups()

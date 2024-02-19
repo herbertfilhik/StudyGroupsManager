@@ -14,11 +14,26 @@ namespace StudyGroupsManager.Data
         }
 
         // Method to create a study group
-        public async Task CreateStudyGroup(StudyGroup studyGroup)
+        public async Task CreateStudyGroup(StudyGroupCreationDto studyGroupDto)
         {
-            _context.StudyGroups.Add(studyGroup);
+            // Cria uma nova instância de StudyGroup com base nos dados recebidos do DTO
+            var newStudyGroup = new StudyGroup
+            {
+                // Suponha que você tenha propriedades como Name e Subject no seu DTO
+                Name = studyGroupDto.Name,
+                Subject = studyGroupDto.Subject,
+                // Defina outras propriedades necessárias aqui
+                CreateDate = DateTime.Now, // Exemplo de definição da data de criação
+                Users = new List<User>() // Inicializa a lista de usuários (se aplicável)
+            };
+
+            // Adiciona o novo grupo de estudo ao contexto do Entity Framework
+            _context.StudyGroups.Add(newStudyGroup);
+
+            // Salva as alterações no banco de dados
             await _context.SaveChangesAsync();
         }
+
 
         // Method to get all study groups
         public async Task<IEnumerable<StudyGroup>> GetStudyGroups()
@@ -113,6 +128,13 @@ namespace StudyGroupsManager.Data
 
             return studyGroups;
         }
+
+        // Methody verify id User already has group for subject
+        public async Task<bool> UserAlreadyHasGroupForSubject(int userId, Subject subject)
+        {
+            return await _context.StudyGroups.AnyAsync(sg => sg.Users.Any(u => u.Id == userId) && sg.Subject == subject);
+        }
+
 
     }
 }

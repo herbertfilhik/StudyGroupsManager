@@ -4,7 +4,8 @@
     public interface IStudyGroupRepository
     {
         // Creates a new study group
-        Task CreateStudyGroup(StudyGroup studyGroup);
+        Task CreateStudyGroup(StudyGroupCreationDto studyGroupDto);
+
 
         // Retrieves all study groups
         Task<IEnumerable<StudyGroup>> GetStudyGroups();
@@ -26,6 +27,10 @@
 
         // Retrieves filtered and sorted study groups based on parameters
         void GetStudyGroupsFilteredAndSorted(string filter, bool sortByAscending);
+
+        // Responsable to verify if a user already in studygroup
+        Task<bool> UserAlreadyHasGroupForSubject(int userId, Subject subject);
+
 
         // Add other methods here if necessary
     }

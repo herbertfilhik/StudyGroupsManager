@@ -47,7 +47,7 @@ namespace StudyGroupsManager.Models
 
         public DateTime CreateDate { get; set; } // Date when the study group was created
 
-        public List<User> Users { get; private set; } // List of users in the study group
+        public List<User> Users { get; set; } // List of users in the study group
 
         // Method to add a user to the study group
         public void AddUser(User user)

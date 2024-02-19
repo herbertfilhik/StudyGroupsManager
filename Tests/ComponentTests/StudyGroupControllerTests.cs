@@ -26,16 +26,22 @@ namespace StudyGroupsManager.Tests.ComponentTests
         public async Task CreateStudyGroup_WhenCalled_ShouldReturnOk()
         {
             // Arrange
-            var studyGroup = new StudyGroup { Name = "Math Study Group", Subject = Subject.Math }; // Creating a study group object
-            _mockRepository.Setup(repo => repo.CreateStudyGroup(It.IsAny<StudyGroup>())) // Setting up mock repository behavior
-                           .Returns(Task.CompletedTask); // Mocking the behavior to return a completed task
+            var studyGroupDto = new StudyGroupCreationDto
+            {
+                UserId = 1, // Supondo que UserId seja necessário
+                Name = "Math Study Group",
+                Subject = Subject.Math
+            }; // Criando um objeto StudyGroupCreationDto
+            _mockRepository.Setup(repo => repo.CreateStudyGroup(It.IsAny<StudyGroupCreationDto>())) // Configurando o comportamento do repositório mock
+                           .Returns(Task.CompletedTask); // Simulando o comportamento para retornar uma tarefa concluída
 
             // Act
-            var result = await _controller.CreateStudyGroup(studyGroup); // Invoking the action method
+            var result = await _controller.CreateStudyGroup(studyGroupDto); // Invocando o método de ação com o DTO correto
 
             // Assert
-            Assert.IsInstanceOf<OkResult>(result); // Verifying if the result is of type OkResult
+            Assert.IsInstanceOf<OkResult>(result); // Verificando se o resultado é do tipo OkResult
         }
+
 
         // Test case to ensure GetStudyGroups action returns all study groups
         [Test]
@@ -105,6 +111,58 @@ namespace StudyGroupsManager.Tests.ComponentTests
             var returnedGroups = objectResult.Value as IEnumerable<StudyGroup>; // Extracting the value from the result
             Assert.IsNotNull(returnedGroups); // Verifying if the returned groups are not null
             Assert.That(returnedGroups, Is.EquivalentTo(filteredStudyGroups)); // Verifying if the returned study groups are equivalent to the filtered study groups
+        }
+
+        [Test]
+        public async Task CreateStudyGroup_WhenUserAlreadyHasGroupForSubject_ShouldReturnBadRequest()
+        {
+            // Arrange
+            var mockRepository = new Mock<IStudyGroupRepository>();
+            var controller = new StudyGroupController(mockRepository.Object);
+            var studyGroupDto = new StudyGroupCreationDto
+            {
+                UserId = 1, // Exemplo de ID de usuário
+                Name = "Grupo de Estudo de Matemática",
+                Subject = Subject.Math
+            };
+
+            // Configura o mock para simular que o usuário já possui um grupo para o assunto
+            mockRepository.Setup(repo => repo.UserAlreadyHasGroupForSubject(studyGroupDto.UserId, studyGroupDto.Subject))
+                          .ReturnsAsync(true);
+
+            // Act
+            var result = await controller.CreateStudyGroup(studyGroupDto);
+
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+        }
+
+        [Test]
+        public async Task GetStudyGroups_WhenFilteredBySubject_ShouldReturnFilteredStudyGroups()
+        {
+            // Arrange
+            var mockRepository = new Mock<IStudyGroupRepository>();
+            var controller = new StudyGroupController(mockRepository.Object);
+            var subjectToFilter = Subject.Math; // Assunto pelo qual filtraremos os grupos de estudo
+            var studyGroups = new List<StudyGroup>
+            {
+                new StudyGroup(1, "Math Study Group", Subject.Math, DateTime.Now, new List<User>()),
+                new StudyGroup(2, "Chemistry Study Group", Subject.Chemistry, DateTime.Now, new List<User>())
+            };
+            // Configura o mock para retornar apenas os grupos de estudo filtrados pelo assunto especificado
+            mockRepository.Setup(r => r.SearchStudyGroups(subjectToFilter.ToString()))
+                          .ReturnsAsync(studyGroups.Where(sg => sg.Subject == subjectToFilter).ToList());
+
+            // Act
+            var result = await controller.SearchStudyGroups(subjectToFilter.ToString());
+
+            // Assert
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult, "O resultado deve ser uma instância de OkObjectResult.");
+            var returnedStudyGroups = okResult.Value as List<StudyGroup>;
+            Assert.IsNotNull(returnedStudyGroups, "A lista de grupos de estudo retornada não deve ser nula.");
+            Assert.IsTrue(returnedStudyGroups.All(sg => sg.Subject == subjectToFilter), "Todos os grupos de estudo retornados devem ser do assunto filtrado.");
+            Assert.AreEqual(returnedStudyGroups.Count, studyGroups.Count(sg => sg.Subject == subjectToFilter), "O número de grupos de estudo retornados deve corresponder ao número de grupos filtrados pelo assunto.");
         }
 
         // Include new tests if necessary
