@@ -34,6 +34,29 @@ The project's success hinges on fulfilling key user capabilities:
 3. Browsing and filtering existing study groups.
 4. Exiting study groups as needed.
 
+## Configuration and Installation
+
+This project is developed using specific technologies and requires the installation of certain software and tools to run correctly. Follow the steps below to set up your development environment.
+
+### Prerequisites
+
+Before starting, ensure you have installed on your machine:
+
+- [.NET 5.0 SDK](https://dotnet.microsoft.com/download) or higher: Required to compile and run .NET Core projects.
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads): Used to store the study groups data. The Express version is sufficient for development environments.
+- [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio Code](https://code.visualstudio.com/Download): Recommended IDEs for .NET development, with support for C# and integrated testing tools.
+- [Git](https://git-scm.com/downloads): Necessary to clone the project repository.
+
+### Installation
+
+1. **Clone the Repository**
+
+   Open a terminal or command prompt and execute the following command to clone the project repository:
+
+   ```bash
+   git clone https://github.com/herbertfilhik/StudyGroupsManager.git
+
+
 ## Test Strategy
 
 - **Test Case Identification**: Based on the acceptance criteria, test cases encompass functionality checks for group creation, user addition/removal, and data integrity.
