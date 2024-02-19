@@ -15,13 +15,18 @@ namespace StudyGroupsManager.Models
         }
 
         // Action method to create a study group
-        // Action method to create a study group
         public async Task<IActionResult> CreateStudyGroup(StudyGroupCreationDto studyGroupDto)
         {
             // Validação do comprimento do nome
             if (string.IsNullOrWhiteSpace(studyGroupDto.Name) || studyGroupDto.Name.Length < 5 || studyGroupDto.Name.Length > 30)
             {
                 return BadRequest("O nome do grupo deve ter entre 5 e 30 caracteres.");
+            }
+
+            // Validação do assunto
+            if (!Enum.IsDefined(typeof(Subject), studyGroupDto.Subject))
+            {
+                return BadRequest("Assunto inválido.");
             }
 
             try

@@ -263,6 +263,24 @@ namespace StudyGroupsManager.Tests.ComponentTests
             Assert.IsTrue(badRequestResultLong.Value.ToString().Contains("O nome do grupo deve ter entre 5 e 30 caracteres."));
         }
 
+        [Test]
+        public async Task CreateStudyGroup_WithInvalidSubject_ShouldReturnValidationError()
+        {
+            // Arrange
+            var mockRepository = new Mock<IStudyGroupRepository>();
+            var controller = new StudyGroupController(mockRepository.Object);            
+            var invalidSubjectValue = (Subject)999;
+            var studyGroupDto = new StudyGroupCreationDto { Name = "Study Group", Subject = invalidSubjectValue };
+
+            // Act
+            var result = await controller.CreateStudyGroup(studyGroupDto);
+
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.IsTrue(badRequestResult.Value.ToString().Contains("Assunto inválido."));
+        }
+
 
         // Include new tests if necessary
     }

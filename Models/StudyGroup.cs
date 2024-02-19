@@ -63,10 +63,10 @@ namespace StudyGroupsManager.Models
     }
 
     // Enum representing different subjects
-    public enum Subject
-    {
-        Math,
-        Chemistry,
-        Physics
-    }
+    //public enum Subject
+    //{
+    //    Math,
+    //    Chemistry,
+    //    Physics
+    //}
 }
