@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
 using StudyGroupsManager.Context;
 using StudyGroupsManager.Data;
 using StudyGroupsManager.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StudyGroupsManager.Tests.ComponentTests
 {

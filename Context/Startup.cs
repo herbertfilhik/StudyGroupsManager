@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using StudyGroupsManager.Context;
-using StudyGroupsManager.Data;
 using StudyGroupsManager.Models; // Adjust according to your context and repository correct namespace
 
 namespace StudyGroupsManager
