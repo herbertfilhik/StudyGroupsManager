@@ -16,17 +16,20 @@ namespace StudyGroupsManager.Data
             _context = context;
         }
 
+        // Method to create a study group
         public async Task CreateStudyGroup(StudyGroup studyGroup)
         {
             _context.StudyGroups.Add(studyGroup);
             await _context.SaveChangesAsync();
         }
 
+        // Method to get all study groups
         public async Task<IEnumerable<StudyGroup>> GetStudyGroups()
         {
             return await _context.StudyGroups.ToListAsync();
         }
 
+        // Method to search for study groups by subject
         public async Task<IEnumerable<StudyGroup>> SearchStudyGroups(string subject)
         {
             return await _context.StudyGroups
@@ -34,22 +37,24 @@ namespace StudyGroupsManager.Data
                 .ToListAsync();
         }
 
+        // Method to join a study group
         public async Task JoinStudyGroup(int studyGroupId, int userId)
         {
-            // Esta é uma implementação de exemplo. Você precisará ajustar conforme a lógica do seu aplicativo.
+            // This is a sample implementation. You will need to adjust it according to your application logic.
             var user = await _context.Users.FindAsync(userId);
             var studyGroup = await _context.StudyGroups.FindAsync(studyGroupId);
             if (user != null && studyGroup != null)
             {
-                // Supondo que você tenha uma lista de usuários em StudyGroup
+                // Assuming you have a list of users in StudyGroup
                 studyGroup.Users.Add(user);
                 await _context.SaveChangesAsync();
             }
         }
 
+        // Method to leave a study group
         public async Task LeaveStudyGroup(int studyGroupId, int userId)
         {
-            // Implementação similar ao JoinStudyGroup, mas removendo o usuário do grupo
+            // Similar implementation to JoinStudyGroup, but removing the user from the group
             var user = await _context.Users.FindAsync(userId);
             var studyGroup = await _context.StudyGroups.FindAsync(studyGroupId);
             if (user != null && studyGroup != null && studyGroup.Users.Contains(user))
@@ -59,9 +64,10 @@ namespace StudyGroupsManager.Data
             }
         }
 
+        // Method to get study groups filtered and sorted
         public void GetStudyGroupsFilteredAndSorted(string subject, bool sortByCreationDateDescending)
         {
-            // Implementação de exemplo. Ajuste conforme necessário.
+            // Sample implementation. Adjust as necessary.
             var query = _context.StudyGroups.AsQueryable();
 
             if (!string.IsNullOrEmpty(subject))
@@ -78,21 +84,23 @@ namespace StudyGroupsManager.Data
                 query = query.OrderBy(sg => sg.CreateDate);
             }
 
-            // Como este método é void, você pode querer ajustá-lo para retornar uma lista ou modificar a interface
-            var result = query.ToList(); // Isso requer ajuste na interface ou no uso deste método.
+            // Since this method is void, you may want to adjust it to return a list or modify the interface
+            var result = query.ToList(); // This requires adjustment in the interface or usage of this method.
         }
 
+        // Method to get study groups with users whose names start with 'M'
         public async Task<IEnumerable<StudyGroup>> GetStudyGroupsWithUserStartingWithM()
         {
             return await _context.StudyGroups
-                .Include(sg => sg.Users) // Garante que os usuários sejam carregados
+                .Include(sg => sg.Users) // Ensure users are loaded
                 .Where(sg => sg.Users.Any(u => u.Name.StartsWith("M")))
                 .ToListAsync();
         }
 
+        // Method to get study groups with users whose names start with 'M' in an in-memory database
         public async Task<IEnumerable<StudyGroup>> GetStudyGroupsWithUserStartingWithMInMemoryDataBase()
         {
-            // SQL bruto
+            // Raw SQL
             var query = @"
             SELECT DISTINCT sg.* 
             FROM StudyGroups sg
@@ -100,10 +108,10 @@ namespace StudyGroupsManager.Data
             WHERE u.Name LIKE 'M%'
             ORDER BY sg.CreateDate";
 
-            // Executa a consulta SQL bruta
+            // Execute the raw SQL query
             var studyGroups = await _context.StudyGroups
                 .FromSqlRaw(query)
-                .Include(sg => sg.Users) // Pode ser necessário ajustar ou remover, dependendo do suporte do seu provider
+                .Include(sg => sg.Users) // May need adjustment or removal depending on your provider support
                 .ToListAsync();
 
             return studyGroups;

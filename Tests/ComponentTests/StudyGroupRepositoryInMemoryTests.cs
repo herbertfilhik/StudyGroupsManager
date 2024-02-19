@@ -20,7 +20,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
                 .UseInMemoryDatabase(databaseName: "TestDb")
                 .Options;
 
-            // Inicializa o contexto e o banco de dados em memória
+            // Initializes the context and the in-memory database
             using (var context = new AppDbContext(options))
             {
                 var user = new User { Name = "Miguel" };
@@ -31,16 +31,16 @@ namespace StudyGroupsManager.Tests.ComponentTests
                 await context.SaveChangesAsync();
             }
 
-            // Testa a funcionalidade do repositório
+            // Tests the functionality of the repository
             using (var context = new AppDbContext(options))
             {
                 var repository = new StudyGroupRepository(context);
                 var result = await repository.GetStudyGroupsWithUserStartingWithM();
 
-                Console.WriteLine($"Número de grupos encontrados: {result.Count()}");
+                Console.WriteLine($"Number of groups found: {result.Count()}");
                 foreach (var group in result)
                 {
-                    Console.WriteLine($"Grupo: {group.Name}, Usuários: {string.Join(", ", group.Users.Select(u => u.Name))}");
+                    Console.WriteLine($"Group: {group.Name}, Users: {string.Join(", ", group.Users.Select(u => u.Name))}");
                 }
 
                 Assert.That(result, Is.Not.Empty);

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using StudyGroupsManager.Context;
 using StudyGroupsManager.Data;
-using StudyGroupsManager.Models; // Ajuste conforme o namespace correto do seu contexto e repositório
+using StudyGroupsManager.Models; // Adjust according to your context and repository correct namespace
 
 namespace StudyGroupsManager
 {
@@ -12,16 +12,16 @@ namespace StudyGroupsManager
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            // Outras configurações podem ser removidas ou condicionadas para não interferir nos testes
+            // Other configurations can be removed or conditioned to not interfere with tests
             services.AddDbContext<AppDbContext>(options =>
                 options.UseInMemoryDatabase("TestDb"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Configurações padrões, como app.UseRouting(), app.UseAuthorization(), etc.
+            // Default configurations, like app.UseRouting(), app.UseAuthorization(), etc.
 
-            // Inicialize e adicione dados de teste de forma condicional
+            // Initialize and add test data conditionally
             InitializeDatabase(app);
         }
 
@@ -31,8 +31,8 @@ namespace StudyGroupsManager
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-                // Aqui você pode verificar se o banco já está populado
-                // Isso é especialmente útil para evitar duplicação de dados em desenvolvimento
+                // Here you can check if the database is already populated
+                // This is especially useful to avoid data duplication during development
                 if (!context.StudyGroups.Any())
                 {
                     AddTestData(context);
@@ -42,22 +42,22 @@ namespace StudyGroupsManager
 
         private void AddTestData(AppDbContext context)
         {
-            // Cria uma lista de usuários para adicionar ao grupo de estudos
+            // Create a list of users to add to the study group
             var users = new List<User>
             {
                 new User
                 {
-                    // Inicialize as propriedades necessárias do usuário
+                    // Initialize necessary user properties
                     Name = "Maria"
-                    // Adicione outras propriedades obrigatórias
+                    // Add other mandatory properties
                 }
-                // Adicione mais usuários conforme necessário
+                // Add more users as needed
              };
 
-            // Cria um novo grupo de estudos utilizando o construtor
+            // Create a new study group using the constructor
             var studyGroup1 = new StudyGroup(
-                studyGroupId: 1, // ou outro valor conforme necessário
-                name: "Grupo de Estudo de Matemática",
+                studyGroupId: 1, // or another value as needed
+                name: "Math Study Group",
                 subject: Subject.Math,
                 createDate: DateTime.Now,
                 users: users

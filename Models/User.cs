@@ -9,10 +9,10 @@ namespace StudyGroupsManager.Models
         [Required]
         public string Name { get; set; } = string.Empty;
 
-        // Adicione o atributo StudyGroupId para associar usuários a grupos de estudo
+        // Add the StudyGroupId attribute to associate users with study groups
         public int StudyGroupId { get; set; }
 
-        // Se necessário, você também pode adicionar uma propriedade de navegação para representar o relacionamento com o grupo de estudo
+        // If necessary, you can also add a navigation property to represent the relationship with the study group
         // public StudyGroup StudyGroup { get; set; }
     }
 }

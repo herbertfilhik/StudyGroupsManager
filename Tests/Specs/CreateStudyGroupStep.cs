@@ -1,8 +1,7 @@
-﻿
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 
 namespace StudyGroupsManager.Tests.Specs
-{    
+{
     [Binding]
     public class CreateStudyGroupSteps
     {
@@ -13,34 +12,39 @@ namespace StudyGroupsManager.Tests.Specs
             _scenarioContext = scenarioContext;
         }
 
+        // Given the user is on the Create Study Group page
         [Given(@"the user is on the Create Study Group page")]
         public void GivenTheUserIsOnTheCreateStudyGroupPage()
         {
-            // Implementação do código para verificar se o usuário está na página de criação de grupo de estudo
+            // Implementation of code to verify if the user is on the create study group page
         }
 
+        // When the user enters a group name '(.*)' and selects a valid subject '(.*)'
         [When(@"the user enters a group name '(.*)' and selects a valid subject '(.*)'")]
         public void WhenTheUserEntersAGroupNameAndSelectsAValidSubject(string groupName, string subject)
         {
-            // Implementação do código para simular o usuário inserindo um nome de grupo e selecionando um assunto
+            // Implementation of code to simulate the user entering a group name and selecting a subject
         }
 
+        // When the user submits the form
         [When(@"the user submits the form")]
         public void WhenTheUserSubmitsTheForm()
         {
-            // Implementação do código para simular a submissão do formulário de criação de grupo de estudo
+            // Implementation of code to simulate the submission of the study group creation form
         }
 
+        // Then a new study group should be created
         [Then(@"a new study group should be created")]
         public void ThenANewStudyGroupShouldBeCreated()
         {
-            // Implementação do código para verificar se um novo grupo de estudo foi criado
+            // Implementation of code to verify if a new study group has been created
         }
 
+        // Then the user should be redirected to the Study Group details page
         [Then(@"the user should be redirected to the Study Group details page")]
         public void ThenTheUserShouldBeRedirectedToTheStudyGroupDetailsPage()
         {
-            // Implementação do código para verificar se o usuário foi redirecionado para a página de detalhes do grupo de estudo
+            // Implementation of code to verify if the user has been redirected to the study group details page
         }
     }
 }

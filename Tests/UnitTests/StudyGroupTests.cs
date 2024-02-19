@@ -43,7 +43,7 @@ namespace StudyGroupsManager.Tests.UnitTests
         {
             // Arrange
             var nameTooShort = "Math";
-            var nameTooLong = new string('A', 31); // 31 characteres name example.
+            var nameTooLong = new string('A', 31); // Example of a 31-character name.
 
             // Act & Assert
             Assert.Throws<ArgumentException>(() => new StudyGroup(2, nameTooShort, Subject.Math, DateTime.Now, new List<User>()));
@@ -54,7 +54,7 @@ namespace StudyGroupsManager.Tests.UnitTests
         public void CreateStudyGroup_WithInvalidSubject_ShouldThrowArgumentException()
         {
             // Arrange
-            var invalidSubject = (Subject)999; // Invalid ENUM value example.
+            var invalidSubject = (Subject)999; // Example of an invalid ENUM value.
 
             // Act & Assert
             Assert.Throws<ArgumentException>(() => new StudyGroup(4, "Invalid Study Group", invalidSubject, DateTime.Now, new List<User>()));
@@ -68,7 +68,6 @@ namespace StudyGroupsManager.Tests.UnitTests
             var studyGroup = new StudyGroup(1, validName, Subject.Math, DateTime.Now, new List<User>());
 
             // Act & Assert
-            //Assert.AreEqual(validName, studyGroup.Name);
             Assert.That(studyGroup.Name, Is.EqualTo(validName));
         }
 
@@ -80,7 +79,6 @@ namespace StudyGroupsManager.Tests.UnitTests
             var studyGroup = new StudyGroup(1, "Chemistry Group", validSubject, DateTime.Now, new List<User>());
 
             // Act & Assert
-            //Assert.AreEqual(validSubject, studyGroup.Subject);
             Assert.That(studyGroup.Subject, Is.EqualTo(validSubject));
         }
 
@@ -92,7 +90,6 @@ namespace StudyGroupsManager.Tests.UnitTests
             var studyGroup = new StudyGroup(1, "Physics Group", Subject.Physics, creationDate, new List<User>());
 
             // Act & Assert
-            //Assert.AreEqual(creationDate, studyGroup.CreateDate);
             Assert.That(studyGroup.CreateDate, Is.EqualTo(creationDate));
         }
 
@@ -101,20 +98,18 @@ namespace StudyGroupsManager.Tests.UnitTests
         {
             // Arrange
             var user = new User { Id = 1, Name = "João" };
-            var mathGroup = new StudyGroup(1, "Grupo de Matemática", Subject.Math, DateTime.Now, new List<User>());
-            var chemistryGroup = new StudyGroup(2, "Grupo de Química", Subject.Chemistry, DateTime.Now, new List<User>());
+            var mathGroup = new StudyGroup(1, "Math Group", Subject.Math, DateTime.Now, new List<User>());
+            var chemistryGroup = new StudyGroup(2, "Chemistry Group", Subject.Chemistry, DateTime.Now, new List<User>());
 
             // Act
             mathGroup.AddUser(user);
             chemistryGroup.AddUser(user);
 
             // Assert
-            Assert.IsTrue(mathGroup.Users.Contains(user), "O usuário deve estar no grupo de matemática.");
-            Assert.IsTrue(chemistryGroup.Users.Contains(user), "O usuário deve estar no grupo de química.");
+            Assert.IsTrue(mathGroup.Users.Contains(user), "User should be in the math group.");
+            Assert.IsTrue(chemistryGroup.Users.Contains(user), "User should be in the chemistry group.");
         }
 
-
-        // Add more tests as necessary to name validation, etc
+        // Add more tests as necessary for name validation, etc.
     }
-
 }

@@ -17,7 +17,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
         [SetUp]
         public void Setup()
         {
-            // Initiate mock before each test
+            // Initialize mock before each test
             _mockRepository = new Mock<IStudyGroupRepository>();
             _controller = new StudyGroupController(_mockRepository.Object);
         }
@@ -53,7 +53,6 @@ namespace StudyGroupsManager.Tests.ComponentTests
 
             // Act
             var result = await _controller.GetStudyGroups();
-            //var result = _mockRepository.Setup(repo => repo.CreateStudyGroup(It.IsAny<StudyGroup>())).Returns(Task.CompletedTask);
 
             // Assert
             var objectResult = result as OkObjectResult;
@@ -62,9 +61,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
             var model = objectResult.Value as IEnumerable<StudyGroup>;
             Assert.IsNotNull(model, " The value is not IEnumerable<StudyGroup> type.");
 
-            //Assert.AreEqual(studyGroups.Count, model.Count(), "The count of the study groups does not match.");
             Assert.That(model.Count(), Is.EqualTo(studyGroups.Count), "The count of the study groups does not match.");
-
         }
 
         [Test]
@@ -84,7 +81,6 @@ namespace StudyGroupsManager.Tests.ComponentTests
             Assert.IsNotNull(objectResult);
             var returnedGroups = objectResult.Value as IEnumerable<StudyGroup>;
             Assert.IsNotNull(returnedGroups);
-            //Assert.AreEqual(filteredStudyGroups.Count, returnedGroups.Count());
             Assert.That(returnedGroups.Count(), Is.EqualTo(filteredStudyGroups.Count));
         }
 
@@ -159,11 +155,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
         }
 
 
-        // The tests to verify the sorting of the study groups can be more complex and require a more detailed mock.
-        // This may involve sorting the data returned by the mocked repository or verifying the parameters used
-        // to call the repository method that performs the sorting.
-
-        // Implement additional tests for joining, viewing, and leaving groups as necessary.
+        // Additional tests for joining, viewing, and leaving groups can be implemented as necessary.
 
     }
 }
