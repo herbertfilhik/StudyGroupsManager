@@ -52,10 +52,34 @@ Before starting, ensure you have installed on your machine:
 1. **Clone the Repository**
 
    Open a terminal or command prompt and execute the following command to clone the project repository:
-
    ```bash
    git clone https://github.com/herbertfilhik/StudyGroupsManager.git
+   ```
 
+2. **Install Dependencies**
+
+   Navigate to the cloned project folder and restore the project dependencies using the .NET Core CLI:
+   ```bash
+   cd StudyGroupsManager
+   dotnet restore
+   ```
+
+3. **Configure the Database**
+   - Ensure SQL Server is installed and running on your machine.
+   - Create a new database in SQL Server for the project.
+   - Update the connection string in the appsettings.json file of the project to point to your newly created database.
+
+4. **Apply Entity Framework Migrations**
+   Use the .NET Core CLI to apply migrations to the database and create the necessary tables:
+   ```bash
+   dotnet ef database update
+   ```  
+
+5. **Run the Project**
+   Still in the terminal, run the project with the following command:
+   ```bash
+   dotnet run
+   ``` 
 
 ## Test Strategy
 
