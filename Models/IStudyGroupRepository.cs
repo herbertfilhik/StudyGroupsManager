@@ -40,6 +40,8 @@
 
         Task<User> GetUserById(int userId);
 
+        Task<bool> IsUserMemberOfStudyGroup(int userId, int studyGroupId);
+
         // Add other methods here if necessary
     }
 }

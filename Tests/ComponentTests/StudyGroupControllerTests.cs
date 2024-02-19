@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Mvc; // ASP.NET Core MVC framework for handling web r
 using NUnit.Framework; // NUnit framework for unit testing
 using System; // System namespace
 using System.Collections.Generic; // Namespace for working with collections
-using System.Threading.Tasks; // Namespace for working with asynchronous tasks
+using System.Threading.Tasks;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using StudyGroupsManager.Context; // Namespace for working with asynchronous tasks
 
 namespace StudyGroupsManager.Tests.ComponentTests
 {
@@ -14,11 +17,28 @@ namespace StudyGroupsManager.Tests.ComponentTests
         private Mock<IStudyGroupRepository> _mockRepository; // Mock repository for testing
         private StudyGroupController _controller; // Controller being tested
 
+        private SqliteConnection _connection;
+        private DbContextOptions<AppDbContext> _options;
+
         [SetUp]
         public void Setup()
         {
             _mockRepository = new Mock<IStudyGroupRepository>(); // Initializing mock repository
             _controller = new StudyGroupController(_mockRepository.Object); // Initializing controller with mock repository
+
+            // Configures SQLite in-memory mode
+            _connection = new SqliteConnection("DataSource=:memory:");
+            _connection.Open();
+
+            _options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseSqlite(_connection)
+                .Options;
+
+            // Initializes the database
+            using (var context = new AppDbContext(_options))
+            {
+                context.Database.EnsureCreated();
+            }
         }
 
         // Test case to ensure CreateStudyGroup action returns OkResult when called
@@ -95,19 +115,27 @@ namespace StudyGroupsManager.Tests.ComponentTests
 
 
         // Test case to ensure LeaveStudyGroup action returns OkResult with valid data
+        // Test case to ensure LeaveStudyGroup action returns OkResult with valid data
         [Test]
         public async Task LeaveStudyGroup_WithValidData_ShouldReturnOk()
         {
             // Arrange
-            _mockRepository.Setup(repo => repo.LeaveStudyGroup(It.IsAny<int>(), It.IsAny<int>())) // Setting up mock repository behavior
-                           .Returns(Task.CompletedTask); // Mocking the behavior to return a completed task
+            int userId = 1;
+            int studyGroupId = 1;
+
+            // Configura o mock para simular que o usuário é membro do grupo de estudo
+            _mockRepository.Setup(repo => repo.IsUserMemberOfStudyGroup(userId, studyGroupId)).ReturnsAsync(true);
+
+            // Configura o mock para simular o comportamento de sair do grupo de estudo com sucesso
+            _mockRepository.Setup(repo => repo.LeaveStudyGroup(studyGroupId, userId)).Returns(Task.CompletedTask);
 
             // Act
-            var result = await _controller.LeaveStudyGroup(1, 1); // Invoking the action method
+            var result = await _controller.LeaveStudyGroup(studyGroupId, userId);
 
             // Assert
-            Assert.IsInstanceOf<OkResult>(result); // Verifying if the result is of type OkResult
+            Assert.IsInstanceOf<OkResult>(result); // Verificando se o resultado é do tipo OkResult
         }
+
 
         // Test case to ensure SearchStudyGroups action returns filtered study groups based on subject
         [Test]
@@ -281,6 +309,24 @@ namespace StudyGroupsManager.Tests.ComponentTests
             Assert.IsTrue(badRequestResult.Value.ToString().Contains("Assunto inválido."));
         }
 
+        [Test]
+        public async Task LeaveStudyGroup_WhenUserIsNotMember_ShouldReturnBadRequest()
+        {
+            // Arrange
+            var mockRepository = new Mock<IStudyGroupRepository>();
+            var controller = new StudyGroupController(mockRepository.Object);
+            int userId = 1; // Exemplo de ID de usuário
+            int studyGroupId = 1; // Exemplo de ID de grupo de estudo
+
+            // Configura o mock para simular que o usuário não é membro do grupo de estudo
+            mockRepository.Setup(r => r.IsUserMemberOfStudyGroup(userId, studyGroupId)).ReturnsAsync(false);
+
+            // Act
+            var result = await controller.LeaveStudyGroup(studyGroupId, userId);
+
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+        }
 
         // Include new tests if necessary
     }

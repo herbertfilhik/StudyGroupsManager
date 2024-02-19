@@ -97,8 +97,17 @@ namespace StudyGroupsManager.Models
         // Action method to leave a study group
         public async Task<IActionResult> LeaveStudyGroup(int studyGroupId, int userId)
         {
+            // Primeiro, verifica se o usuário é membro do grupo de estudo
+            bool isMember = await _studyGroupRepository.IsUserMemberOfStudyGroup(userId, studyGroupId);
+            if (!isMember)
+            {
+                // Se não for membro, retorna BadRequest
+                return BadRequest($"O usuário com ID {userId} não é membro do grupo de estudo com ID {studyGroupId}.");
+            }
+
+            // Se for membro, prossegue com a lógica para remover o usuário do grupo de estudo
             await _studyGroupRepository.LeaveStudyGroup(studyGroupId, userId);
-            return new OkResult();
+            return Ok();
         }
 
         // Action method to get filtered and sorted study groups

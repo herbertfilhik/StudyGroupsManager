@@ -173,5 +173,12 @@ namespace StudyGroupsManager.Data
             await _context.SaveChangesAsync();
         }
 
+        // Implementação do método recém-adicionado
+        public async Task<bool> IsUserMemberOfStudyGroup(int userId, int studyGroupId)
+        {
+            // Verifica se existe algum grupo de estudo com o ID especificado que contém um usuário com o ID especificado
+            return await _context.StudyGroups
+                .AnyAsync(sg => sg.StudyGroupId == studyGroupId && sg.Users.Any(u => u.Id == userId));
+        }
     }
 }
