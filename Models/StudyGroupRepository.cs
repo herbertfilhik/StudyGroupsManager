@@ -1,37 +1,37 @@
-﻿using StudyGroupsManager.Models;
-using Microsoft.EntityFrameworkCore;
-using StudyGroupsManager.Context;
+﻿using StudyGroupsManager.Models; // Namespace for study group models
+using Microsoft.EntityFrameworkCore; // Namespace for Entity Framework Core
+using StudyGroupsManager.Context; // Namespace for application DbContext
 
 namespace StudyGroupsManager.Data
 {
     public class StudyGroupRepository : IStudyGroupRepository
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _context; // Application DbContext
 
         public StudyGroupRepository(AppDbContext context)
         {
-            _context = context;
+            _context = context; // Initializing DbContext
         }
 
         // Method to create a study group
         public async Task<bool> CreateStudyGroup(StudyGroupCreationDto studyGroupDto)
         {
-            // Cria uma nova instância de StudyGroup com base nos dados recebidos do DTO
+            // Create a new instance of StudyGroup based on data received from the DTO
             var newStudyGroup = new StudyGroup
             {
                 Name = studyGroupDto.Name,
-                Subject = studyGroupDto.Subject, // Diretamente usa o valor do enum, que já é garantido ser válido
-                CreateDate = DateTime.Now, // Define a data de criação para agora
-                Users = new List<User>() // Inicializa a lista de usuários, se aplicável
+                Subject = studyGroupDto.Subject, // Directly use the value of the enum, which is already guaranteed to be valid
+                CreateDate = DateTime.Now, // Set the creation date to now
+                Users = new List<User>() // Initialize the list of users, if applicable
             };
 
-            // Adiciona o novo grupo de estudo ao contexto do Entity Framework
+            // Add the new study group to the Entity Framework context
             _context.StudyGroups.Add(newStudyGroup);
 
-            // Salva as alterações no banco de dados
+            // Save changes to the database
             await _context.SaveChangesAsync();
 
-            return true; // Retorna true para indicar sucesso
+            return true; // Return true to indicate success
         }
 
         // Method to get all study groups
@@ -128,7 +128,7 @@ namespace StudyGroupsManager.Data
             return studyGroups;
         }
 
-        // Methody verify id User already has group for subject
+        // Method to verify if user already has a group for subject
         public async Task<bool> UserAlreadyHasGroupForSubject(int userId, Subject subject)
         {
             return await _context.StudyGroups.AnyAsync(sg => sg.Users.Any(u => u.Id == userId) && sg.Subject == subject);
@@ -155,28 +155,28 @@ namespace StudyGroupsManager.Data
         public async Task<StudyGroup> GetStudyGroupById(int studyGroupId)
         {
             return await _context.StudyGroups
-                                 .Include(sg => sg.Users) // Opcional, dependendo se você quer carregar os usuários do grupo
+                                 .Include(sg => sg.Users) // Optional, depending on whether you want to load the group's users
                                  .FirstOrDefaultAsync(sg => sg.StudyGroupId == studyGroupId);
         }
 
         public async Task<User> GetUserById(int userId)
         {
-            // Implemente a lógica para buscar um usuário pelo ID.
-            // Exemplo:
+            // Implement logic to fetch a user by ID.
+            // Example:
             return await _context.Users.FindAsync(userId);
         }
 
-        // Implementação do método conforme definido na interface
+        // Implementation of method as defined in interface
         public async Task CreateStudyGroup(StudyGroup studyGroup)
         {
             _context.StudyGroups.Add(studyGroup);
             await _context.SaveChangesAsync();
         }
 
-        // Implementação do método recém-adicionado
+        // Implementation of newly added method
         public async Task<bool> IsUserMemberOfStudyGroup(int userId, int studyGroupId)
         {
-            // Verifica se existe algum grupo de estudo com o ID especificado que contém um usuário com o ID especificado
+            // Check if there exists any study group with the specified ID that contains a user with the specified ID
             return await _context.StudyGroups
                 .AnyAsync(sg => sg.StudyGroupId == studyGroupId && sg.Users.Any(u => u.Id == userId));
         }
