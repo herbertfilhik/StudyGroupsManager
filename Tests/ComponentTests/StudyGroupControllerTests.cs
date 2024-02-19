@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using StudyGroupsManager.Context;
+using StudyGroupsManager.Repositories;
+using StudyGroupsManager.DTOs;
+
 
 namespace StudyGroupsManager.Tests.ComponentTests
 {

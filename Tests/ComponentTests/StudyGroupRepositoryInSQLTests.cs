@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using StudyGroupsManager.Context;
-using StudyGroupsManager.Data;
+using StudyGroupsManager.Repositories;
 using StudyGroupsManager.Models;
 
 namespace StudyGroupsManager.Tests.ComponentTests

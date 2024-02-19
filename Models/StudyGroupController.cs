@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
+using StudyGroupsManager.DTOs;
+using StudyGroupsManager.Repositories;
 
 namespace StudyGroupsManager.Models
 {

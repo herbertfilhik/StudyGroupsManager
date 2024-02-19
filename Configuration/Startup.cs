@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StudyGroupsManager.Context;
 using StudyGroupsManager.Models; // Adjust according to your context and repository correct namespace
 
-namespace StudyGroupsManager
+namespace StudyGroupsManager.Configuration
 {
     public class Startup
     {

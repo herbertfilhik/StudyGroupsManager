@@ -1,8 +1,9 @@
 ﻿using StudyGroupsManager.Models; // Namespace for study group models
 using Microsoft.EntityFrameworkCore; // Namespace for Entity Framework Core
-using StudyGroupsManager.Context; // Namespace for application DbContext
+using StudyGroupsManager.Context;
+using StudyGroupsManager.DTOs;
 
-namespace StudyGroupsManager.Data
+namespace StudyGroupsManager.Repositories
 {
     public class StudyGroupRepository : IStudyGroupRepository
     {

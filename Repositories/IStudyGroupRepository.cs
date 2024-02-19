@@ -1,4 +1,6 @@
-﻿namespace StudyGroupsManager.Models
+﻿using StudyGroupsManager.Models;
+
+namespace StudyGroupsManager.Repositories
 {
     // Interface for managing study groups
     public interface IStudyGroupRepository
