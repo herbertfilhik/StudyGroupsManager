@@ -167,5 +167,12 @@ namespace StudyGroupsManager.Data
             return await _context.Users.FindAsync(userId);
         }
 
+        // Implementação do método conforme definido na interface
+        public async Task CreateStudyGroup(StudyGroup studyGroup)
+        {
+            _context.StudyGroups.Add(studyGroup);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

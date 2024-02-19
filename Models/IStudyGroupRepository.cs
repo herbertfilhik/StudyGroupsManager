@@ -4,8 +4,8 @@
     public interface IStudyGroupRepository
     {
         // Creates a new study group
-        Task CreateStudyGroup(StudyGroupCreationDto studyGroupDto);
-
+        //Task CreateStudyGroup(StudyGroupCreationDto studyGroupDto);
+        Task CreateStudyGroup(StudyGroup studyGroup);
 
         // Retrieves all study groups
         Task<IEnumerable<StudyGroup>> GetStudyGroups();

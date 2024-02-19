@@ -32,8 +32,12 @@ namespace StudyGroupsManager.Tests.ComponentTests
                 Name = "Math Study Group",
                 Subject = Subject.Math
             }; // Criando um objeto StudyGroupCreationDto
-            _mockRepository.Setup(repo => repo.CreateStudyGroup(It.IsAny<StudyGroupCreationDto>())) // Configurando o comportamento do repositório mock
-                           .Returns(Task.CompletedTask); // Simulando o comportamento para retornar uma tarefa concluída
+
+            //_mockRepository.Setup(repo => repo.CreateStudyGroup(It.IsAny<StudyGroupCreationDto>())) // Configurando o comportamento do repositório mock
+            //               .Returns(Task.CompletedTask); // Simulando o comportamento para retornar uma tarefa concluída
+
+            _mockRepository.Setup(repo => repo.CreateStudyGroup(It.IsAny<StudyGroup>()))
+               .Returns(Task.CompletedTask);
 
             // Act
             var result = await _controller.CreateStudyGroup(studyGroupDto); // Invocando o método de ação com o DTO correto
@@ -231,6 +235,33 @@ namespace StudyGroupsManager.Tests.ComponentTests
             Assert.IsInstanceOf<BadRequestObjectResult>(result);
         }
 
+        [Test]
+        public async Task CreateStudyGroup_WithInvalidNameLength_ShouldReturnValidationError()
+        {
+            // Arrange
+            var mockRepository = new Mock<IStudyGroupRepository>();
+            var controller = new StudyGroupController(mockRepository.Object);
+            var tooShortName = "Mat"; // Menos de 5 caracteres
+            var tooLongName = new string('A', 31); // Mais de 30 caracteres
+            var validSubject = Subject.Math;
+
+            var studyGroupDtoShortName = new StudyGroupCreationDto { Name = tooShortName, Subject = validSubject };
+            var studyGroupDtoLongName = new StudyGroupCreationDto { Name = tooLongName, Subject = validSubject };
+
+            // Act
+            var resultShortName = await controller.CreateStudyGroup(studyGroupDtoShortName);
+            var resultLongName = await controller.CreateStudyGroup(studyGroupDtoLongName);
+
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(resultShortName);
+            Assert.IsInstanceOf<BadRequestObjectResult>(resultLongName);
+
+            var badRequestResultShort = resultShortName as BadRequestObjectResult;
+            var badRequestResultLong = resultLongName as BadRequestObjectResult;
+
+            Assert.IsTrue(badRequestResultShort.Value.ToString().Contains("O nome do grupo deve ter entre 5 e 30 caracteres."));
+            Assert.IsTrue(badRequestResultLong.Value.ToString().Contains("O nome do grupo deve ter entre 5 e 30 caracteres."));
+        }
 
 
         // Include new tests if necessary

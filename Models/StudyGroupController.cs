@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Moq;
 
 namespace StudyGroupsManager.Models
 {
@@ -14,8 +15,15 @@ namespace StudyGroupsManager.Models
         }
 
         // Action method to create a study group
+        // Action method to create a study group
         public async Task<IActionResult> CreateStudyGroup(StudyGroupCreationDto studyGroupDto)
         {
+            // Validação do comprimento do nome
+            if (string.IsNullOrWhiteSpace(studyGroupDto.Name) || studyGroupDto.Name.Length < 5 || studyGroupDto.Name.Length > 30)
+            {
+                return BadRequest("O nome do grupo deve ter entre 5 e 30 caracteres.");
+            }
+
             try
             {
                 // Verifica se o usuário já possui um grupo para o assunto
@@ -26,12 +34,14 @@ namespace StudyGroupsManager.Models
                 }
 
                 // Cria um novo objeto StudyGroup a partir do DTO
-                var newStudyGroup = new StudyGroupCreationDto
+                var newStudyGroup = new StudyGroup
                 {
-                    // Atribua os valores do DTO para o novo objeto StudyGroup aqui
+                    // Supondo que o construtor de StudyGroup aceite Name e Subject como parâmetros
                     Name = studyGroupDto.Name,
                     Subject = studyGroupDto.Subject,
-                    // Defina os outros campos conforme necessário
+                    CreateDate = DateTime.UtcNow, // Defina a data de criação para agora
+                    // Inicialize a lista de usuários como vazia, ou adicione o usuário se aplicável
+                    Users = new List<User>()
                 };
 
                 // Tenta criar o grupo de estudo
@@ -42,7 +52,8 @@ namespace StudyGroupsManager.Models
             {
                 return BadRequest(ex.Message); // Retorna erro se a criação falhar
             }
-        }    
+        }
+
 
         // Action method to get all study groups
         public async Task<IActionResult> GetStudyGroups()
