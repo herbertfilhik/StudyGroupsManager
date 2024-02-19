@@ -61,9 +61,22 @@ namespace StudyGroupsManager.Models
         // Action method to join a study group
         public async Task<IActionResult> JoinStudyGroup(int studyGroupId, int userId)
         {
+            var studyGroup = await _studyGroupRepository.GetStudyGroupById(studyGroupId);
+            if (studyGroup == null)
+            {
+                return NotFound("Grupo de estudo não encontrado.");
+            }
+
+            var userAlreadyMember = await _studyGroupRepository.UserIsMemberOfStudyGroupForSubject(userId, studyGroup.Subject);
+            if (userAlreadyMember)
+            {
+                return BadRequest("Usuário já é membro de um grupo de estudo deste assunto.");
+            }
+
             await _studyGroupRepository.JoinStudyGroup(studyGroupId, userId);
-            return new OkResult();
+            return Ok();
         }
+
 
         // Action method to leave a study group
         public async Task<IActionResult> LeaveStudyGroup(int studyGroupId, int userId)

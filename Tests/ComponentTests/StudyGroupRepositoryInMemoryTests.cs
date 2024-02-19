@@ -35,7 +35,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
                 Console.WriteLine($"Number of groups found: {result.Count()}");
                 foreach (var group in result)
                 {
-                    Console.WriteLine($"Group: {group.Name}, Users: {string.Join(", ", group.Users.Select(u => u.Name))}");
+                    Console.WriteLine($"Group ID: {group.StudyGroupId}, Group: {group.Name}, Users: {string.Join(", ", group.Users.Select(u => u.Name))}");
                 }
 
                 Assert.That(result, Is.Not.Empty);

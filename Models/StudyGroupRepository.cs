@@ -147,5 +147,25 @@ namespace StudyGroupsManager.Data
             }
         }
 
+        public async Task<bool> UserIsMemberOfStudyGroupForSubject(int userId, Subject subject)
+        {
+            return await _context.StudyGroups
+                .AnyAsync(sg => sg.Users.Any(u => u.Id == userId) && sg.Subject == subject);
+        }
+
+        public async Task<StudyGroup> GetStudyGroupById(int studyGroupId)
+        {
+            return await _context.StudyGroups
+                                 .Include(sg => sg.Users) // Opcional, dependendo se você quer carregar os usuários do grupo
+                                 .FirstOrDefaultAsync(sg => sg.StudyGroupId == studyGroupId);
+        }
+
+        public async Task<User> GetUserById(int userId)
+        {
+            // Implemente a lógica para buscar um usuário pelo ID.
+            // Exemplo:
+            return await _context.Users.FindAsync(userId);
+        }
+
     }
 }

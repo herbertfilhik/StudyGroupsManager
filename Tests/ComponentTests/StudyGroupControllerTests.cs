@@ -67,15 +67,28 @@ namespace StudyGroupsManager.Tests.ComponentTests
         public async Task JoinStudyGroup_WithValidData_ShouldReturnOk()
         {
             // Arrange
-            _mockRepository.Setup(repo => repo.JoinStudyGroup(It.IsAny<int>(), It.IsAny<int>())) // Setting up mock repository behavior
-                           .Returns(Task.CompletedTask); // Mocking the behavior to return a completed task
+            var mockRepository = new Mock<IStudyGroupRepository>();
+            var controller = new StudyGroupController(mockRepository.Object);
+            int studyGroupId = 1; // ID de exemplo do grupo de estudo
+            int userId = 1; // ID de exemplo do usuário
+
+            // Simulando que o grupo de estudo e o usuário existem
+            mockRepository.Setup(repo => repo.GetStudyGroupById(studyGroupId))
+                          .ReturnsAsync(new StudyGroup { StudyGroupId = studyGroupId, Users = new List<User>() });
+            mockRepository.Setup(repo => repo.GetUserById(userId))
+                          .ReturnsAsync(new User { Id = userId });
+
+            // Configurando o comportamento do mock para simular a adição bem-sucedida de um usuário ao grupo de estudo
+            mockRepository.Setup(repo => repo.JoinStudyGroup(studyGroupId, userId))
+                          .Returns(Task.CompletedTask);
 
             // Act
-            var result = await _controller.JoinStudyGroup(1, 1); // Invoking the action method
+            var result = await controller.JoinStudyGroup(studyGroupId, userId); // Invocando o método de ação
 
             // Assert
-            Assert.IsInstanceOf<OkResult>(result); // Verifying if the result is of type OkResult
+            Assert.IsInstanceOf<OkResult>(result); // Verificando se o resultado é do tipo OkResult
         }
+
 
         // Test case to ensure LeaveStudyGroup action returns OkResult with valid data
         [Test]
@@ -194,6 +207,30 @@ namespace StudyGroupsManager.Tests.ComponentTests
             Assert.AreEqual(2, returnedStudyGroups.Count);
             Assert.IsTrue(returnedStudyGroups[0].CreateDate > returnedStudyGroups[1].CreateDate, "Os grupos de estudo não estão ordenados corretamente pela data de criação.");
         }
+
+        [Test]
+        public async Task JoinStudyGroup_WhenUserAlreadyInAnotherGroupOfSameSubject_ShouldReturnBadRequest()
+        {
+            var mockRepository = new Mock<IStudyGroupRepository>();
+            var controller = new StudyGroupController(mockRepository.Object);
+            int studyGroupId = 1; // Exemplo de ID de grupo de estudo
+            int userId = 1; // Exemplo de ID de usuário
+
+            // Configura o mock para simular que o grupo de estudo existe
+            mockRepository.Setup(r => r.GetStudyGroupById(studyGroupId))
+                          .ReturnsAsync(new StudyGroup { StudyGroupId = studyGroupId, Subject = Subject.Math });
+
+            // Configura o mock para simular que o usuário já é membro de um grupo de estudo do mesmo assunto
+            mockRepository.Setup(r => r.UserIsMemberOfStudyGroupForSubject(userId, Subject.Math))
+                          .ReturnsAsync(true);
+
+            // Act
+            var result = await controller.JoinStudyGroup(studyGroupId, userId);
+
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+        }
+
 
 
         // Include new tests if necessary
