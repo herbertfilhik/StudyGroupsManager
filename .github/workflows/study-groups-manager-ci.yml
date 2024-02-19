@@ -23,22 +23,13 @@ jobs:
       uses: actions/cache@v2
       with:
         path: |
-          C:\hostedtoolcache\windows\.nuget\packages
-          C:\hostedtoolcache\windows\NuGet\v3-cache
+          d:\a\StudyGroupsManager\StudyGroupsManager\.nuget\packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/StudyGroupsManager.sln', '**/NuGet.config') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
 
     - name: Restore dependencies
       run: dotnet restore
-    
-    # Insira o passo de debug aqui para verificar o caminho do cache
-    - name: Debug - List NuGet cache directory
-      run: |
-        echo "Listing USERPROFILE .nuget/packages:"
-        dir "$env:USERPROFILE\.nuget\packages"
-        echo "Listing LOCALAPPDATA NuGet\Cache:"
-        dir "$env:LOCALAPPDATA\NuGet\Cache"
     
     - name: Build
       run: dotnet build --no-restore --configuration Release
