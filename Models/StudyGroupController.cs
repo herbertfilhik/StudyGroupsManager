@@ -35,7 +35,7 @@ namespace StudyGroupsManager.Models
                 bool userHasGroupForSubject = await _studyGroupRepository.UserAlreadyHasGroupForSubject(studyGroupDto.UserId, studyGroupDto.Subject);
                 if (userHasGroupForSubject)
                 {
-                    return BadRequest("O usuário já possui um grupo de estudo para esse assunto.");
+                    return BadRequest("The user already has a study group for this subject.");
                 }
 
                 // Create new StudyGroup object from DTO
@@ -55,7 +55,7 @@ namespace StudyGroupsManager.Models
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message); // Retorna erro se a criação falhar
+                return BadRequest(ex.Message); 
             }
         }
 
@@ -80,13 +80,13 @@ namespace StudyGroupsManager.Models
             var studyGroup = await _studyGroupRepository.GetStudyGroupById(studyGroupId);
             if (studyGroup == null)
             {
-                return NotFound("Grupo de estudo não encontrado.");
+                return NotFound("Study group not found.");
             }
 
             var userAlreadyMember = await _studyGroupRepository.UserIsMemberOfStudyGroupForSubject(userId, studyGroup.Subject);
             if (userAlreadyMember)
             {
-                return BadRequest("Usuário já é membro de um grupo de estudo deste assunto.");
+                return BadRequest("User is already a member of a study group for this subject.");
             }
 
             await _studyGroupRepository.JoinStudyGroup(studyGroupId, userId);
@@ -97,12 +97,12 @@ namespace StudyGroupsManager.Models
         // Action method to leave a study group
         public async Task<IActionResult> LeaveStudyGroup(int studyGroupId, int userId)
         {
-            // Primeiro, verifica se o usuário é membro do grupo de estudo
+            //  First, check if the user is a member of the study group
             bool isMember = await _studyGroupRepository.IsUserMemberOfStudyGroup(userId, studyGroupId);
             if (!isMember)
             {
                 // If not member, return BadRequest
-                return BadRequest($"O usuário com ID {userId} não é membro do grupo de estudo com ID {studyGroupId}.");
+                return BadRequest($"The user with ID {userId} is not a member of the study group with ID {studyGroupId}.");
             }
 
             // If member, procede witj logic to remove user from Study Group

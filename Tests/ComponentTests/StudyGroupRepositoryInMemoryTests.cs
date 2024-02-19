@@ -19,7 +19,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
             using (var context = new AppDbContext(options))
             {
                 var user = new User { Name = "Miguel" };
-                var studyGroup = new StudyGroup(4, "Grupo M", Subject.Math, DateTime.Now, new List<User>());
+                var studyGroup = new StudyGroup(4, "Group M", Subject.Math, DateTime.Now, new List<User>());
                 studyGroup.AddUser(user);
 
                 context.StudyGroups.Add(studyGroup);
