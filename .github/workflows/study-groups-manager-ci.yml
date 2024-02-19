@@ -19,6 +19,13 @@ jobs:
       with:
         dotnet-version: '8.0.x'
     
+    - name: List NuGet cache directory
+      run: |
+        echo "Listing USERPROFILE .nuget/packages:"
+        dir "$env:USERPROFILE\.nuget\packages"
+        echo "Listing LOCALAPPDATA NuGet\Cache:"
+        dir "$env:LOCALAPPDATA\NuGet\Cache"
+
     - name: Cache NuGet Packages
       uses: actions/cache@v2
       with:
