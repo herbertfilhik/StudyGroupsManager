@@ -17,13 +17,13 @@ namespace StudyGroupsManager.Models
         // Action method to create a study group
         public async Task<IActionResult> CreateStudyGroup(StudyGroupCreationDto studyGroupDto)
         {
-            // Validação do comprimento do nome
+            // Length name validation
             if (string.IsNullOrWhiteSpace(studyGroupDto.Name) || studyGroupDto.Name.Length < 5 || studyGroupDto.Name.Length > 30)
             {
                 return BadRequest("O nome do grupo deve ter entre 5 e 30 caracteres.");
             }
 
-            // Validação do assunto
+            // Subject validation
             if (!Enum.IsDefined(typeof(Subject), studyGroupDto.Subject))
             {
                 return BadRequest("Assunto inválido.");
@@ -31,25 +31,25 @@ namespace StudyGroupsManager.Models
 
             try
             {
-                // Verifica se o usuário já possui um grupo para o assunto
+                // Verify if User already has Group for subject
                 bool userHasGroupForSubject = await _studyGroupRepository.UserAlreadyHasGroupForSubject(studyGroupDto.UserId, studyGroupDto.Subject);
                 if (userHasGroupForSubject)
                 {
                     return BadRequest("O usuário já possui um grupo de estudo para esse assunto.");
                 }
 
-                // Cria um novo objeto StudyGroup a partir do DTO
+                // Create new StudyGroup object from DTO
                 var newStudyGroup = new StudyGroup
                 {
-                    // Supondo que o construtor de StudyGroup aceite Name e Subject como parâmetros
+                    
                     Name = studyGroupDto.Name,
                     Subject = studyGroupDto.Subject,
-                    CreateDate = DateTime.UtcNow, // Defina a data de criação para agora
-                    // Inicialize a lista de usuários como vazia, ou adicione o usuário se aplicável
+                    CreateDate = DateTime.UtcNow,
+                    // Initialize the user list as empty, or add the user if applicable
                     Users = new List<User>()
                 };
 
-                // Tenta criar o grupo de estudo
+                // Try create StudyGroup
                 await _studyGroupRepository.CreateStudyGroup(newStudyGroup);
                 return Ok(); // Retorna sucesso
             }
@@ -101,11 +101,11 @@ namespace StudyGroupsManager.Models
             bool isMember = await _studyGroupRepository.IsUserMemberOfStudyGroup(userId, studyGroupId);
             if (!isMember)
             {
-                // Se não for membro, retorna BadRequest
+                // If not member, return BadRequest
                 return BadRequest($"O usuário com ID {userId} não é membro do grupo de estudo com ID {studyGroupId}.");
             }
 
-            // Se for membro, prossegue com a lógica para remover o usuário do grupo de estudo
+            // If member, procede witj logic to remove user from Study Group
             await _studyGroupRepository.LeaveStudyGroup(studyGroupId, userId);
             return Ok();
         }
@@ -146,7 +146,7 @@ namespace StudyGroupsManager.Models
             return Ok(studyGroups);
         }
 
-        // Método para obter grupos de estudo ordenados por data de criação
+        // Methody to obtain Study Groups ordering by creation date
         public async Task<IActionResult> GetStudyGroupsSortedByCreationDate(bool descending)
         {
             var studyGroups = await _studyGroupRepository.GetStudyGroupsSortedByCreationDate(descending);

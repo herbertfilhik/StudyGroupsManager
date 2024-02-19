@@ -35,7 +35,7 @@
 
         Task<bool> UserIsMemberOfStudyGroupForSubject(int userId, Subject subject);
 
-        // Método para buscar um grupo de estudo pelo ID
+        // Method to retrieve a study group by ID
         Task<StudyGroup> GetStudyGroupById(int studyGroupId);
 
         Task<User> GetUserById(int userId);
