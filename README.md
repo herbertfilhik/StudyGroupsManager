@@ -14,6 +14,7 @@
 ## Understanding the task
 
 [Task](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/Test%20task_QA.NET_BW.docx)
+[ppt](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/Web_Application_Study_Group_Feature_Testing_No_Images.pptx)
 
 ## Overview
 
