@@ -41,9 +41,9 @@ namespace StudyGroupsManager.Models
 
         // Define constraints for the Name property
         [StringLength(MaxNameLength, MinimumLength = MinNameLength, ErrorMessage = "The group name must be between {2} and {1} characters.")]
-        public string? Name { get; private set; }
+        public string? Name { get; set; }
 
-        public Subject Subject { get; } // Subject of the study group
+        public Subject Subject { get; set; } // Subject of the study group
 
         public DateTime CreateDate { get; set; } // Date when the study group was created
 

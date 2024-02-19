@@ -1,9 +1,7 @@
 ﻿using StudyGroupsManager.Models;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StudyGroupsManager.Tests.UnitTests
 {
@@ -109,7 +107,5 @@ namespace StudyGroupsManager.Tests.UnitTests
             Assert.IsTrue(mathGroup.Users.Contains(user), "User should be in the math group.");
             Assert.IsTrue(chemistryGroup.Users.Contains(user), "User should be in the chemistry group.");
         }
-
-        // Add more tests as necessary for name validation, etc.
     }
 }
