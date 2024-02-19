@@ -20,13 +20,13 @@ namespace StudyGroupsManager.Models
             // Length name validation
             if (string.IsNullOrWhiteSpace(studyGroupDto.Name) || studyGroupDto.Name.Length < 5 || studyGroupDto.Name.Length > 30)
             {
-                return BadRequest("O nome do grupo deve ter entre 5 e 30 caracteres.");
+                return BadRequest("The name of the group must be between 5 and 30 characters.");
             }
 
             // Subject validation
             if (!Enum.IsDefined(typeof(Subject), studyGroupDto.Subject))
             {
-                return BadRequest("Assunto inválido.");
+                return BadRequest("Invalid Subject");
             }
 
             try

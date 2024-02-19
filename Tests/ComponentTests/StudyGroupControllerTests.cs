@@ -1,13 +1,9 @@
-﻿using Moq; // Mocking library for creating mock objects
-using StudyGroupsManager.Models; // Contains the models used in the application
-using Microsoft.AspNetCore.Mvc; // ASP.NET Core MVC framework for handling web requests
-using NUnit.Framework; // NUnit framework for unit testing
-using System; // System namespace
-using System.Collections.Generic; // Namespace for working with collections
-using System.Threading.Tasks;
+﻿using Moq;
+using StudyGroupsManager.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using StudyGroupsManager.Context; // Namespace for working with asynchronous tasks
+using StudyGroupsManager.Context;
 
 namespace StudyGroupsManager.Tests.ComponentTests
 {
@@ -48,22 +44,19 @@ namespace StudyGroupsManager.Tests.ComponentTests
             // Arrange
             var studyGroupDto = new StudyGroupCreationDto
             {
-                UserId = 1, // Supondo que UserId seja necessário
+                UserId = 1,
                 Name = "Math Study Group",
                 Subject = Subject.Math
-            }; // Criando um objeto StudyGroupCreationDto
-
-            //_mockRepository.Setup(repo => repo.CreateStudyGroup(It.IsAny<StudyGroupCreationDto>())) // Configurando o comportamento do repositório mock
-            //               .Returns(Task.CompletedTask); // Simulando o comportamento para retornar uma tarefa concluída
+            };
 
             _mockRepository.Setup(repo => repo.CreateStudyGroup(It.IsAny<StudyGroup>()))
                .Returns(Task.CompletedTask);
 
             // Act
-            var result = await _controller.CreateStudyGroup(studyGroupDto); // Invocando o método de ação com o DTO correto
+            var result = await _controller.CreateStudyGroup(studyGroupDto); 
 
             // Assert
-            Assert.IsInstanceOf<OkResult>(result); // Verificando se o resultado é do tipo OkResult
+            Assert.IsInstanceOf<OkResult>(result);
         }
 
 
@@ -93,28 +86,26 @@ namespace StudyGroupsManager.Tests.ComponentTests
             // Arrange
             var mockRepository = new Mock<IStudyGroupRepository>();
             var controller = new StudyGroupController(mockRepository.Object);
-            int studyGroupId = 1; // ID de exemplo do grupo de estudo
-            int userId = 1; // ID de exemplo do usuário
+            int studyGroupId = 1;
+            int userId = 1;
 
-            // Simulando que o grupo de estudo e o usuário existem
+            // Simulating that the study group and the user exist
             mockRepository.Setup(repo => repo.GetStudyGroupById(studyGroupId))
                           .ReturnsAsync(new StudyGroup { StudyGroupId = studyGroupId, Users = new List<User>() });
             mockRepository.Setup(repo => repo.GetUserById(userId))
                           .ReturnsAsync(new User { Id = userId });
 
-            // Configurando o comportamento do mock para simular a adição bem-sucedida de um usuário ao grupo de estudo
+            // Configuring the mock behavior to simulate the successful addition of a user to the study group
             mockRepository.Setup(repo => repo.JoinStudyGroup(studyGroupId, userId))
                           .Returns(Task.CompletedTask);
 
             // Act
-            var result = await controller.JoinStudyGroup(studyGroupId, userId); // Invocando o método de ação
+            var result = await controller.JoinStudyGroup(studyGroupId, userId); 
 
             // Assert
-            Assert.IsInstanceOf<OkResult>(result); // Verificando se o resultado é do tipo OkResult
+            Assert.IsInstanceOf<OkResult>(result); 
         }
 
-
-        // Test case to ensure LeaveStudyGroup action returns OkResult with valid data
         // Test case to ensure LeaveStudyGroup action returns OkResult with valid data
         [Test]
         public async Task LeaveStudyGroup_WithValidData_ShouldReturnOk()
@@ -123,17 +114,17 @@ namespace StudyGroupsManager.Tests.ComponentTests
             int userId = 1;
             int studyGroupId = 1;
 
-            // Configura o mock para simular que o usuário é membro do grupo de estudo
+            // Configures the mock to simulate that the user is a member of the study group
             _mockRepository.Setup(repo => repo.IsUserMemberOfStudyGroup(userId, studyGroupId)).ReturnsAsync(true);
 
-            // Configura o mock para simular o comportamento de sair do grupo de estudo com sucesso
+            // Configures the mock to simulate the behavior of successfully leaving the study group
             _mockRepository.Setup(repo => repo.LeaveStudyGroup(studyGroupId, userId)).Returns(Task.CompletedTask);
 
             // Act
             var result = await _controller.LeaveStudyGroup(studyGroupId, userId);
 
             // Assert
-            Assert.IsInstanceOf<OkResult>(result); // Verificando se o resultado é do tipo OkResult
+            Assert.IsInstanceOf<OkResult>(result);
         }
 
 
@@ -166,12 +157,12 @@ namespace StudyGroupsManager.Tests.ComponentTests
             var controller = new StudyGroupController(mockRepository.Object);
             var studyGroupDto = new StudyGroupCreationDto
             {
-                UserId = 1, // Exemplo de ID de usuário
-                Name = "Grupo de Estudo de Matemática",
+                UserId = 1, 
+                Name = "Math Study Group",
                 Subject = Subject.Math
             };
 
-            // Configura o mock para simular que o usuário já possui um grupo para o assunto
+            // Configures the mock to simulate that the user already has a group for the subject
             mockRepository.Setup(repo => repo.UserAlreadyHasGroupForSubject(studyGroupDto.UserId, studyGroupDto.Subject))
                           .ReturnsAsync(true);
 
@@ -188,13 +179,14 @@ namespace StudyGroupsManager.Tests.ComponentTests
             // Arrange
             var mockRepository = new Mock<IStudyGroupRepository>();
             var controller = new StudyGroupController(mockRepository.Object);
-            var subjectToFilter = Subject.Math; // Assunto pelo qual filtraremos os grupos de estudo
+            var subjectToFilter = Subject.Math;
             var studyGroups = new List<StudyGroup>
             {
                 new StudyGroup(1, "Math Study Group", Subject.Math, DateTime.Now, new List<User>()),
                 new StudyGroup(2, "Chemistry Study Group", Subject.Chemistry, DateTime.Now, new List<User>())
             };
-            // Configura o mock para retornar apenas os grupos de estudo filtrados pelo assunto especificado
+
+            // Configures the mock to return only the study groups filtered by the specified subject
             mockRepository.Setup(r => r.SearchStudyGroups(subjectToFilter.ToString()))
                           .ReturnsAsync(studyGroups.Where(sg => sg.Subject == subjectToFilter).ToList());
 
@@ -203,11 +195,11 @@ namespace StudyGroupsManager.Tests.ComponentTests
 
             // Assert
             var okResult = result as OkObjectResult;
-            Assert.IsNotNull(okResult, "O resultado deve ser uma instância de OkObjectResult.");
+            Assert.IsNotNull(okResult, "The result should be an instance of OkObjectResult.");
             var returnedStudyGroups = okResult.Value as List<StudyGroup>;
-            Assert.IsNotNull(returnedStudyGroups, "A lista de grupos de estudo retornada não deve ser nula.");
-            Assert.IsTrue(returnedStudyGroups.All(sg => sg.Subject == subjectToFilter), "Todos os grupos de estudo retornados devem ser do assunto filtrado.");
-            Assert.AreEqual(returnedStudyGroups.Count, studyGroups.Count(sg => sg.Subject == subjectToFilter), "O número de grupos de estudo retornados deve corresponder ao número de grupos filtrados pelo assunto.");
+            Assert.IsNotNull(returnedStudyGroups, "The returned list of study groups should not be null.");
+            Assert.IsTrue(returnedStudyGroups.All(sg => sg.Subject == subjectToFilter), "All returned study groups should belong to the filtered subject.");
+            Assert.AreEqual(returnedStudyGroups.Count, studyGroups.Count(sg => sg.Subject == subjectToFilter), "The number of returned study groups should match the number of groups filtered by the subject.");
         }
 
         [Test]
@@ -222,22 +214,22 @@ namespace StudyGroupsManager.Tests.ComponentTests
         new StudyGroup(2, "Newer Study Group", Subject.Math, DateTime.Now, new List<User>())
     };
 
-            // Ordena a lista em ordem decrescente de data de criação antes de configurar o mock
+            // Sort the list in descending order of creation date before configuring the mock
             var orderedStudyGroups = studyGroups.OrderByDescending(sg => sg.CreateDate).ToList();
 
-            // Configura o mock para retornar os grupos de estudo em ordem de criação quando solicitado
+            // Configure the mock to return the study groups in order of creation when requested
             mockRepository.Setup(r => r.GetStudyGroupsSortedByCreationDate(It.IsAny<bool>()))
                           .ReturnsAsync(orderedStudyGroups);
 
             // Act
-            var result = await controller.GetStudyGroupsSortedByCreationDate(true); // true para ordenação decrescente
+            var result = await controller.GetStudyGroupsSortedByCreationDate(true); 
 
             // Assert
             var okResult = result as OkObjectResult;
             Assert.IsNotNull(okResult);
             var returnedStudyGroups = okResult.Value as List<StudyGroup>;
             Assert.AreEqual(2, returnedStudyGroups.Count);
-            Assert.IsTrue(returnedStudyGroups[0].CreateDate > returnedStudyGroups[1].CreateDate, "Os grupos de estudo não estão ordenados corretamente pela data de criação.");
+            Assert.IsTrue(returnedStudyGroups[0].CreateDate > returnedStudyGroups[1].CreateDate, "The study groups are not correctly sorted by creation date.");
         }
 
         [Test]
@@ -245,14 +237,14 @@ namespace StudyGroupsManager.Tests.ComponentTests
         {
             var mockRepository = new Mock<IStudyGroupRepository>();
             var controller = new StudyGroupController(mockRepository.Object);
-            int studyGroupId = 1; // Exemplo de ID de grupo de estudo
-            int userId = 1; // Exemplo de ID de usuário
+            int studyGroupId = 1; 
+            int userId = 1;
 
-            // Configura o mock para simular que o grupo de estudo existe
+            // Configure the mock to simulate that the study group exists
             mockRepository.Setup(r => r.GetStudyGroupById(studyGroupId))
                           .ReturnsAsync(new StudyGroup { StudyGroupId = studyGroupId, Subject = Subject.Math });
 
-            // Configura o mock para simular que o usuário já é membro de um grupo de estudo do mesmo assunto
+            // Configure the mock to simulate that the user is already a member of a study group for the same subject
             mockRepository.Setup(r => r.UserIsMemberOfStudyGroupForSubject(userId, Subject.Math))
                           .ReturnsAsync(true);
 
@@ -269,8 +261,8 @@ namespace StudyGroupsManager.Tests.ComponentTests
             // Arrange
             var mockRepository = new Mock<IStudyGroupRepository>();
             var controller = new StudyGroupController(mockRepository.Object);
-            var tooShortName = "Mat"; // Menos de 5 caracteres
-            var tooLongName = new string('A', 31); // Mais de 30 caracteres
+            var tooShortName = "Mat"; // Less than 5 characters
+            var tooLongName = new string('A', 31); // More than 30 characters
             var validSubject = Subject.Math;
 
             var studyGroupDtoShortName = new StudyGroupCreationDto { Name = tooShortName, Subject = validSubject };
@@ -287,8 +279,8 @@ namespace StudyGroupsManager.Tests.ComponentTests
             var badRequestResultShort = resultShortName as BadRequestObjectResult;
             var badRequestResultLong = resultLongName as BadRequestObjectResult;
 
-            Assert.IsTrue(badRequestResultShort.Value.ToString().Contains("O nome do grupo deve ter entre 5 e 30 caracteres."));
-            Assert.IsTrue(badRequestResultLong.Value.ToString().Contains("O nome do grupo deve ter entre 5 e 30 caracteres."));
+            Assert.IsTrue(badRequestResultShort.Value.ToString().Contains("The name of the group must be between 5 and 30 characters."));
+            Assert.IsTrue(badRequestResultLong.Value.ToString().Contains("The name of the group must be between 5 and 30 characters."));
         }
 
         [Test]
@@ -306,7 +298,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
             // Assert
             Assert.IsInstanceOf<BadRequestObjectResult>(result);
             var badRequestResult = result as BadRequestObjectResult;
-            Assert.IsTrue(badRequestResult.Value.ToString().Contains("Assunto inválido."));
+            Assert.IsTrue(badRequestResult.Value.ToString().Contains("Invalid Subject"));
         }
 
         [Test]
@@ -315,10 +307,10 @@ namespace StudyGroupsManager.Tests.ComponentTests
             // Arrange
             var mockRepository = new Mock<IStudyGroupRepository>();
             var controller = new StudyGroupController(mockRepository.Object);
-            int userId = 1; // Exemplo de ID de usuário
-            int studyGroupId = 1; // Exemplo de ID de grupo de estudo
+            int userId = 1;
+            int studyGroupId = 1;
 
-            // Configura o mock para simular que o usuário não é membro do grupo de estudo
+            // Configures the mock to simulate that the user is not a member of the study group
             mockRepository.Setup(r => r.IsUserMemberOfStudyGroup(userId, studyGroupId)).ReturnsAsync(false);
 
             // Act
