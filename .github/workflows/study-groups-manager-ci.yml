@@ -33,7 +33,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: |
-          d:\a\StudyGroupsManager\StudyGroupsManager\.nuget\packages
+          C:\Users\runneradmin\.nuget\packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/StudyGroupsManager.sln', '**/NuGet.config') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
