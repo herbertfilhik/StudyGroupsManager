@@ -59,6 +59,14 @@ jobs:
         path: |
           **/test_results.html
 
+    - name: Setup Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+
+    - name: End SonarCloud analysis
+      run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONARCLOUD_TOKEN }}
+
     - name: Install SonarScanner for .NET
       run: dotnet tool install --global dotnet-sonarscanner
 
