@@ -44,7 +44,7 @@ jobs:
     - name: List NuGet cache directory after restore
       run: |
         echo "Listing NuGet cache directory:"
-        dir "d:\a\StudyGroupsManager\StudyGroupsManager\.nuget\packages"
+        dir "C:\Users\runneradmin\.nuget\packages"
 
     - name: Build
       run: dotnet build --no-restore --configuration Release
