@@ -59,13 +59,23 @@ jobs:
         path: |
           **/test_results.html
 
-    - name: Setup SonarCloud
-      uses: sonarsource/sonarcloud-github-action@master
-      with:
-        projectBaseDir: .
-        args: >
-          -Dsonar.projectKey=StudyGroupsManager
-          -Dsonar.organization=Lima
-          -Dsonar.sources=.
-          -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.login=${{ secrets.SONARCLOUD_TOKEN }}
+    - name: Install SonarScanner for .NET
+      run: dotnet tool install --global dotnet-sonarscanner
+
+    - name: Install Coverlet for code coverage (optional)
+      run: dotnet tool install --global coverlet.console
+    
+    - name: Begin SonarCloud analysis
+      run: |
+        dotnet sonarscanner begin /k:"StudyGroupsManager" /o:"Lima" /d:sonar.login="${{ secrets.SONARCLOUD_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+    
+    - name: Build
+      run: dotnet build --configuration Release
+    
+    - name: Test and generate code coverage (optional)
+      run: |
+        dotnet test --no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+    - name: End SonarCloud analysis
+      run: |
+        dotnet sonarscanner end /d:sonar.login="${{ secrets.SONARCLOUD_TOKEN }}"
