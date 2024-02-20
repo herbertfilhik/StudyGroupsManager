@@ -57,7 +57,10 @@ jobs:
 
     - name: Test with code coverage
       run: dotnet test --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-    
+
+    - name: Test with code coverage
+      run: dotnet test --no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
     - name: Upload Test Report
       uses: actions/upload-artifact@v2
       with:
