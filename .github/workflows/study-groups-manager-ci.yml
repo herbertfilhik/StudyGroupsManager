@@ -76,7 +76,10 @@ jobs:
         DOTNET_ROOT: C:\Users\runneradmin\AppData\Local\Microsoft\dotnet
 
     - name: End SonarCloud analysis
-      run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONARCLOUD_TOKEN }}
+      run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONARCLOUD_TOKEN }}"
+      env:
+        DOTNET_ROOT: C:\Users\runneradmin\AppData\Local\Microsoft\dotnet
+        JAVA_HOME: C:\hostedtoolcache\windows\Java_Temurin-Hotspot_jdk\17.0.10-7\x64
 
     - name: Install SonarScanner for .NET
       run: dotnet tool install --global dotnet-sonarscanner
