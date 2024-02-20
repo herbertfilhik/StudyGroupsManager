@@ -75,6 +75,9 @@ jobs:
       env:
         DOTNET_ROOT: C:\Users\runneradmin\AppData\Local\Microsoft\dotnet
 
+    - name: Install SonarScanner for .NET
+      run: dotnet tool install --global dotnet-sonarscanner
+
     - name: End SonarCloud analysis
       run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONARCLOUD_TOKEN }}"
       env:
