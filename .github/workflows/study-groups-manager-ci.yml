@@ -18,6 +18,16 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '8.0.x'
+
+    - name: Print NuGet cache location
+      run: |
+        echo "NUGET_PACKAGES location: $env:NUGET_PACKAGES"
+        nuget locals global-packages -list
+
+    - name: Diagnose NuGet package location
+      run: |
+        nuget locals global-packages -list
+        echo "NUGET_PACKAGES location: $env:NUGET_PACKAGES"
         
     - name: Cache NuGet Packages
       uses: actions/cache@v2
