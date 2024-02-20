@@ -40,7 +40,7 @@ namespace StudyGroupsManager.Tests.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Tests/Specs", "Study Group Creation", "  As a user\r\n  I want to create a study group\r\n  So that I can collaborate with o" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "tests/specs", "Study Group Creation", "  As a user\r\n  I want to create a study group\r\n  So that I can collaborate with o" +
                     "thers on the same subject", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }

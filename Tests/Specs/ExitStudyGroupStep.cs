@@ -1,5 +1,5 @@
 ﻿using Gherkin.Ast; // Importing Gherkin AST for defining Gherkin syntax
-using StudyGroupsManager.Models; // Importing StudyGroupsManager.Models namespace
+using StudyGroupsManager.src.Models; // Importing StudyGroupsManager.Models namespace
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -40,7 +40,7 @@ namespace StudyGroupsManager.Tests.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Tests/Specs", "Joining an Existing Group", "  As a user\r\n  I want to join an existing study group\r\n  So that I can participat" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "tests/specs", "Joining an Existing Group", "  As a user\r\n  I want to join an existing study group\r\n  So that I can participat" +
                     "e in group learning activities", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }

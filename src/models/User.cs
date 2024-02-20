@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StudyGroupsManager.Models
+namespace StudyGroupsManager.src.Models
 {
     public class User
     {

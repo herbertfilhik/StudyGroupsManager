@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using StudyGroupsManager.DTOs;
-using StudyGroupsManager.Repositories;
+using StudyGroupsManager.src.DTOs;
+using StudyGroupsManager.src.Repositories;
 
-namespace StudyGroupsManager.Models
+namespace StudyGroupsManager.src.Models
 {
     // Controller responsible for managing study groups
     public class StudyGroupController : ControllerBase
@@ -43,7 +43,7 @@ namespace StudyGroupsManager.Models
                 // Create new StudyGroup object from DTO
                 var newStudyGroup = new StudyGroup
                 {
-                    
+
                     Name = studyGroupDto.Name,
                     Subject = studyGroupDto.Subject,
                     CreateDate = DateTime.UtcNow,
@@ -57,7 +57,7 @@ namespace StudyGroupsManager.Models
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message); 
+                return BadRequest(ex.Message);
             }
         }
 

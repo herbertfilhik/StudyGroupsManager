@@ -1,5 +1,5 @@
-﻿using StudyGroupsManager.Context;
-using StudyGroupsManager.Models;
+﻿using StudyGroupsManager.src.Context;
+using StudyGroupsManager.src.Models;
 
 public static class DbInitializer
 {

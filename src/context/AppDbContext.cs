@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StudyGroupsManager.Models;
+using StudyGroupsManager.src.Models;
 
-namespace StudyGroupsManager.Context
+namespace StudyGroupsManager.src.Context
 {
     // Represents the database context for the application
     public class AppDbContext : DbContext

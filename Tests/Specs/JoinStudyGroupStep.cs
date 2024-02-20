@@ -1,6 +1,6 @@
 ﻿using Gherkin.Ast; // Importing Gherkin AST (Abstract Syntax Tree) for working with Gherkin syntax
 using Gherkin.CucumberMessages.Types; // Importing Gherkin CucumberMessages Types for working with Gherkin messages
-using StudyGroupsManager.Models; // Importing StudyGroupsManager Models for accessing study group related models
+using StudyGroupsManager.src.Models; // Importing StudyGroupsManager Models for accessing study group related models
 using System;
 using System.Collections.Generic;
 using System.Linq;

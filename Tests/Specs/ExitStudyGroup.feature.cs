@@ -40,7 +40,7 @@ namespace StudyGroupsManager.Tests.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Tests/Specs", "Exiting a Study Group", "  As a user\r\n  I want to exit a study group\r\n  So that I can leave groups that I " +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "tests/specs", "Exiting a Study Group", "  As a user\r\n  I want to exit a study group\r\n  So that I can leave groups that I " +
                     "am no longer interested in", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }

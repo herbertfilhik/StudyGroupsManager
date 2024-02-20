@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using StudyGroupsManager.Models;
+using StudyGroupsManager.src.Models;
 
-namespace StudyGroupsManager.DTOs
+namespace StudyGroupsManager.src.DTOs
 {
-    public class StudyGroupJoinDto
+    public class StudyGroupCreationDto
     {
         public int UserId { get; set; }
+        public string Name { get; set; }
         public Subject Subject { get; set; }
     }
+
 }

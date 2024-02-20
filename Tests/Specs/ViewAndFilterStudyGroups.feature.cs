@@ -40,7 +40,7 @@ namespace StudyGroupsManager.Tests.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Tests/Specs", "Viewing and Filtering Groups", "  As a user\r\n  I want to filter study groups by subject\r\n  So that I can find rel" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "tests/specs", "Viewing and Filtering Groups", "  As a user\r\n  I want to filter study groups by subject\r\n  So that I can find rel" +
                     "evant groups more easily", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }

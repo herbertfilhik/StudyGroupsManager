@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StudyGroupsManager.Context;
-using StudyGroupsManager.Repositories;
-using StudyGroupsManager.Models;
+using StudyGroupsManager.src.Context;
+using StudyGroupsManager.src.Models;
+using StudyGroupsManager.src.Repositories;
 
 namespace StudyGroupsManager.Tests.ComponentTests
 {

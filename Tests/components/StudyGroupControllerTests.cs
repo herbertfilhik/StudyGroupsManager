@@ -1,11 +1,11 @@
 ﻿using Moq;
-using StudyGroupsManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using StudyGroupsManager.Context;
-using StudyGroupsManager.Repositories;
-using StudyGroupsManager.DTOs;
+using StudyGroupsManager.src.Context;
+using StudyGroupsManager.src.Models;
+using StudyGroupsManager.src.Repositories;
+using StudyGroupsManager.src.DTOs;
 
 
 namespace StudyGroupsManager.Tests.ComponentTests

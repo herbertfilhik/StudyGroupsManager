@@ -1,6 +1,6 @@
-﻿using StudyGroupsManager.Models;
+﻿using StudyGroupsManager.src.Models;
 
-namespace StudyGroupsManager.Repositories
+namespace StudyGroupsManager.src.Repositories
 {
     // Interface for managing study groups
     public interface IStudyGroupRepository
