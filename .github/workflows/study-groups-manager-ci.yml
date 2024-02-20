@@ -58,3 +58,14 @@ jobs:
         name: test-reports
         path: |
           **/test_results.html
+
+    - name: Setup SonarCloud
+      uses: sonarsource/sonarcloud-github-action@master
+      with:
+        projectBaseDir: .
+        args: >
+          -Dsonar.projectKey=StudyGroupsManager
+          -Dsonar.organization=Lima
+          -Dsonar.sources=.
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.login=${{ secrets.SONARCLOUD_TOKEN }}
