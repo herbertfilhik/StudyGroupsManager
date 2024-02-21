@@ -13,8 +13,8 @@ namespace StudyGroupsManager.Tests.ComponentTests
     [TestFixture]
     public class StudyGroupControllerTests
     {
-        private Mock<IStudyGroupRepository> _mockRepository; // Mock repository for testing
-        private StudyGroupController _controller; // Controller being tested
+        private Mock<IStudyGroupRepository> _mockRepository;  // Mock repository for testing
+        private StudyGroupController _controller;  // Controller being tested
 
         private SqliteConnection _connection;
         private DbContextOptions<AppDbContext> _options;
