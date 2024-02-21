@@ -14,9 +14,9 @@
 
 ## Understanding the task
 
-[Task](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/Test%20task_QA.NET_BW.docx)
+[Task](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/src/docandimagestask/Test%20task_QA.NET_BW.docx)
 
-[ppt](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/Web_Application_Study_Group_Feature_Testing_No_Images.pptx)
+[ppt](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/src/docandimagestask/Web_Application_Study_Group_Feature_Testing_No_Images.pptx)
 
 ## Overview
 
@@ -245,7 +245,7 @@ Each automated test focuses on a specific aspect of the functionality, utilizing
 4. Run Tests: In the Test Explorer, you will see a list of all unit tests in the project. You can run all tests by clicking Run All, or execute specific tests by right-clicking on the desired test and selecting Run.
 5. View Results: After the tests have been run, you can view the results in the Test Explorer, including which tests passed and which failed.
 
-![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_visualstudio_exectest.png)
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/src/docandimagestask/report_visualstudio_exectest.png)
 
 ### Executing Tests in Visual Studio Code
 
@@ -255,7 +255,7 @@ Each automated test focuses on a specific aspect of the functionality, utilizing
 4. Run Tests: With the .NET Core Test Explorer extension installed and the project built, you should see your tests listed in the Test Explorer sidebar. You can run all tests by clicking the play icon, or run individual tests by right-clicking on the desired test and selecting Run test.
 5. View Results: The test results will be displayed directly in the Test Explorer of VS Code.
 
-![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_visualcode_exectest.png)
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/src/docandimagestask/report_visualcode_exectest.png)
 
 ### Executing Tests in Visual Studio Code (Using the Integrated Terminal)
 
@@ -263,8 +263,8 @@ Each automated test focuses on a specific aspect of the functionality, utilizing
 2. Navigate to the Project Directory: Similar to the command prompt, use the cd command to navigate to the directory containing your test project.
 3. Execute the Tests: Use the dotnet test command to run the tests.
 
-![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_cmd_exectest.png)
-![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_html_exectest.png)
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/src/docandimagestask/report_cmd_exectest.png)
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/src/docandimagestask/report_html_exectest.png)
 
 ## SQL Query for StudyGroups Retrieval
 
@@ -277,7 +277,7 @@ WHERE u.Name LIKE 'M%'
 ORDER BY sg.CreateDate;
 ```
 
-![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/report_sqlresul_exectest.png)
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/src/docandimagestask/report_sqlresul_exectest.png)
 
 ## Build and Test CI with GitHub Actions
 
@@ -291,7 +291,7 @@ To build and execute tests, we can use the GitHub Actions pipeline. Follow the s
 6. Click on "Run workflow".
 7. At the end of the process, we will have a log containing all the build and test processes for the project.
 
-![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/docandimagestask/git_actions.png)
+![Descrição da captura de tela](https://github.com/herbertfilhik/StudyGroupsManager/blob/main/src/docandimagestask/git_actions.png)
 
 ## Help us with StudyGroupManager project evolution
 
