@@ -18,48 +18,24 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '8.0.x'
-
-    - name: Print NuGet cache location
-      run: |
-        echo "NUGET_PACKAGES location: $env:NUGET_PACKAGES"
-        nuget locals global-packages -list
-
-    - name: Diagnose NuGet package location
-      run: |
-        nuget locals global-packages -list
-        echo "NUGET_PACKAGES location: $env:NUGET_PACKAGES"
-        
+    
     - name: Cache NuGet Packages
       uses: actions/cache@v2
       with:
         path: |
-          C:\Users\runneradmin\.nuget\packages
+          ~\nuget\packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/StudyGroupsManager.sln', '**/NuGet.config') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
 
     - name: Restore dependencies
       run: dotnet restore
-    
-    - name: List NuGet cache directory after restore
-      run: |
-        echo "Listing NuGet cache directory:"
-        dir "C:\Users\runneradmin\.nuget\packages"
-
-    - name: Test with code coverage
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
     - name: Build
       run: dotnet build --no-restore --configuration Release
-    
+
     - name: Test and Generate Report
-      run: dotnet test --verbosity normal --logger "html;LogFileName=test_results.html"
-
-    - name: Test with code coverage
-      run: dotnet test --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-
-    - name: Test with code coverage
-      run: dotnet test --no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      run: dotnet test --no-restore --configuration Release --verbosity normal --logger "html;LogFileName=test_results.html" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
     - name: Upload Test Report
       uses: actions/upload-artifact@v2
@@ -67,41 +43,21 @@ jobs:
         name: test-reports
         path: |
           **/test_results.html
+          **/coverage.opencover.xml
 
-    - name: Setup Java
+    - name: Setup Java for SonarCloud
       uses: actions/setup-java@v2
       with:
         distribution: 'temurin'
         java-version: '17'
         java-package: jdk
         architecture: x64
-        check-latest: false
-        server-id: github
-        server-username: GITHUB_ACTOR
-        server-password: GITHUB_TOKEN
-        overwrite-settings: true
-        job-status: success
-      env:
-        DOTNET_ROOT: C:\Users\runneradmin\AppData\Local\Microsoft\dotnet
 
     - name: Install SonarScanner for .NET
       run: dotnet tool install --global dotnet-sonarscanner
 
     - name: Begin SonarCloud analysis
       run: dotnet sonarscanner begin /k:"StudyGroupsManager" /o:"elbarracon" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONARCLOUD_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml"
-
-    - name: Install SonarScanner for .NET
-      run: dotnet tool install --global dotnet-sonarscanner
-
-    - name: Install Coverlet for code coverage (optional)
-      run: dotnet tool install --global coverlet.console
-    
-    - name: Build
-      run: dotnet build --configuration Release
-    
-    - name: Test and generate code coverage (optional)
-      run: |
-        dotnet test --no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
     - name: End SonarCloud analysis
       run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONARCLOUD_TOKEN }}"
