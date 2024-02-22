@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Moq;
 using StudyGroupsManager.src.DTOs;
 using StudyGroupsManager.src.Repositories;
 

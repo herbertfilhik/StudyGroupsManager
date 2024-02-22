@@ -1,7 +1,4 @@
 ﻿// Unit tests for the StudyGroup class
-using NUnit.Framework; // Importing NUnit framework for testing
-using System; // Importing System namespace for basic functionalities
-using System.Collections.Generic;
 using StudyGroupsManager.src.Models; // Importing System.Collections.Generic for using Lists
 
 namespace StudyGroupsManager.Tests.UnitTests // Defining the namespace for unit tests

@@ -1,11 +1,11 @@
-﻿using Moq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using StudyGroupsManager.src.Context;
+using StudyGroupsManager.src.DTOs;
 using StudyGroupsManager.src.Models;
 using StudyGroupsManager.src.Repositories;
-using StudyGroupsManager.src.DTOs;
 
 
 namespace StudyGroupsManager.Tests.ComponentTests
@@ -56,7 +56,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
                .Returns(Task.CompletedTask);
 
             // Act
-            var result = await _controller.CreateStudyGroup(studyGroupDto); 
+            var result = await _controller.CreateStudyGroup(studyGroupDto);
 
             // Assert
             Assert.IsInstanceOf<OkResult>(result);
@@ -103,10 +103,10 @@ namespace StudyGroupsManager.Tests.ComponentTests
                           .Returns(Task.CompletedTask);
 
             // Act
-            var result = await controller.JoinStudyGroup(studyGroupId, userId); 
+            var result = await controller.JoinStudyGroup(studyGroupId, userId);
 
             // Assert
-            Assert.IsInstanceOf<OkResult>(result); 
+            Assert.IsInstanceOf<OkResult>(result);
         }
 
         // Test case to ensure LeaveStudyGroup action returns OkResult with valid data
@@ -160,7 +160,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
             var controller = new StudyGroupController(mockRepository.Object);
             var studyGroupDto = new StudyGroupCreationDto
             {
-                UserId = 1, 
+                UserId = 1,
                 Name = "Math Study Group",
                 Subject = Subject.Math
             };
@@ -225,7 +225,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
                           .ReturnsAsync(orderedStudyGroups);
 
             // Act
-            var result = await controller.GetStudyGroupsSortedByCreationDate(true); 
+            var result = await controller.GetStudyGroupsSortedByCreationDate(true);
 
             // Assert
             var okResult = result as OkObjectResult;
@@ -240,7 +240,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
         {
             var mockRepository = new Mock<IStudyGroupRepository>();
             var controller = new StudyGroupController(mockRepository.Object);
-            int studyGroupId = 1; 
+            int studyGroupId = 1;
             int userId = 1;
 
             // Configure the mock to simulate that the study group exists
@@ -291,7 +291,7 @@ namespace StudyGroupsManager.Tests.ComponentTests
         {
             // Arrange
             var mockRepository = new Mock<IStudyGroupRepository>();
-            var controller = new StudyGroupController(mockRepository.Object);            
+            var controller = new StudyGroupController(mockRepository.Object);
             var invalidSubjectValue = (Subject)999;
             var studyGroupDto = new StudyGroupCreationDto { Name = "Study Group", Subject = invalidSubjectValue };
 

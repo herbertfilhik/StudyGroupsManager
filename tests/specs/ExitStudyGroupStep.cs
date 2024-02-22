@@ -1,13 +1,4 @@
-﻿using Gherkin.Ast; // Importing Gherkin AST for defining Gherkin syntax
-using StudyGroupsManager.src.Models; // Importing StudyGroupsManager.Models namespace
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using TechTalk.SpecFlow; // Importing TechTalk SpecFlow for defining BDD-style tests
+﻿using TechTalk.SpecFlow; // Importing TechTalk SpecFlow for defining BDD-style tests
 
 namespace StudyGroupsManager.Tests.Specs
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StudyGroupsManager.src.Models;
+﻿using StudyGroupsManager.src.Models;
 
 namespace StudyGroupsManager.src.DTOs
 {
