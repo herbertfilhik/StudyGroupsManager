@@ -64,6 +64,9 @@ jobs:
     - name: Gerar relatório HTML
       run: reportgenerator "-reports:C:\Users\herbe\source\repos\StudyGroupsManager\bin\Debug\net8.0\fine-code-coverage\coverage-tool-output\StudyGroupsManager.coverage.xml" "-targetdir:coveragereport" -reporttypes:Html
 
+    - name: Install ReportGenerator tool
+      run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
     - name: Upload coverage report
       uses: actions/upload-artifact@v2
       with:
