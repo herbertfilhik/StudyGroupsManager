@@ -46,34 +46,12 @@ jobs:
         echo "Listing NuGet cache directory:"
         dir "C:\Users\runneradmin\.nuget\packages"
 
-    - name: Test with code coverage
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-
     - name: Build
       run: dotnet build --no-restore --configuration Release
     
     - name: Test and Generate Report
       run: dotnet test --verbosity normal --logger "html;LogFileName=test_results.html"
 
-    - name: Test with code coverage
-      run: dotnet test --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-
-    - name: Test with code coverage
-      run: dotnet test --no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-
-    - name: Install ReportGenerator tool
-      run: dotnet tool install --global dotnet-reportgenerator-globaltool
-
-    - name: Run ReportGenerator
-      run: reportgenerator "-reports:D:\a\StudyGroupsManager\StudyGroupsManager\bin\Debug\net8.0\fine-code-coverage\coverage-tool-output\StudyGroupsManager.coverage.xml" "-targetdir:coveragereport" -reporttypes:Html
-
-    - name: Upload coverage report
-      uses: actions/upload-artifact@v2
-      with:
-        name: coveragereport
-        path: |
-          **/index.htm
-        
     - name: Upload Test Report
       uses: actions/upload-artifact@v2
       with:
