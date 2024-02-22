@@ -68,7 +68,7 @@ jobs:
       run: ls -R
 
     - name: Run ReportGenerator
-      run: reportgenerator "-reports:C:\Users\herbe\source\repos\StudyGroupsManager\bin\Debug\net8.0\fine-code-coverage\coverage-tool-output\StudyGroupsManager.coverage.xml" "-targetdir:coveragereport" -reporttypes:Html
+      run: reportgenerator "-reports:D:\a\StudyGroupsManager\StudyGroupsManager\bin\Debug\net8.0\fine-code-coverage\coverage-tool-output\StudyGroupsManager.coverage.xml" "-targetdir:coveragereport" -reporttypes:Html
 
     - name: Upload coverage report
       uses: actions/upload-artifact@v2
