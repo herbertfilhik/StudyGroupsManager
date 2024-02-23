@@ -323,6 +323,175 @@ namespace StudyGroupsManager.Tests.ComponentTests
             Assert.IsInstanceOf<BadRequestObjectResult>(result);
         }
 
+        [Test]
+        public async Task GetStudyGroupsWithUserStartingWithMInMemoryDataBase_ReturnsOkWithStudyGroups()
+        {
+            // Arrange
+            var mockStudyGroups = new List<StudyGroup>
+            {
+                // Add here studygroup mock instances that satisfy the acceptance criteria                
+                // Ex, user with groups with name iniate 'M'
+            };
+
+            _mockRepository.Setup(repo => repo.GetStudyGroupsWithUserStartingWithMInMemoryDataBase())
+                .ReturnsAsync(mockStudyGroups);
+
+            // Act
+            var result = await _controller.GetStudyGroupsWithUserStartingWithMInMemoryDataBase();
+
+            // Assert
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            var returnedStudyGroups = okResult.Value as IEnumerable<StudyGroup>;
+            Assert.IsNotNull(returnedStudyGroups);
+            // Here you can add more asserts abour returned data 
+        }
+
+        [Test]
+        public async Task GetStudyGroupsWithUserStartingWithM_ReturnsOkWithFilteredStudyGroups()
+        {
+            // Arrange
+            var mockStudyGroups = new List<StudyGroup>
+    {
+        // Add here studeygroup mock instances that satisfy the acceptance criteria
+        // Ex, user with groups with name iniate 'M'
+
+        new StudyGroup
+        {
+            // Supondo que StudyGroup tenha uma propriedade 'Users' e 'Name', ajuste conforme seu modelo
+            Name = "Math Group",
+            Users = new List<User>
+            {
+                new User { Name = "Maria" },
+                // Another users can add here
+            }
+            // Add another properties for initiate a study group
+        }
+    };
+
+            _mockRepository.Setup(repo => repo.GetStudyGroupsWithUserStartingWithM())
+                .ReturnsAsync(mockStudyGroups);
+
+            // Act
+            var result = await _controller.GetStudyGroupsWithUserStartingWithM();
+
+            // Assert
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            var returnedStudyGroups = okResult.Value as IEnumerable<StudyGroup>;
+            Assert.IsNotNull(returnedStudyGroups);
+            // Verify id returned groups satisfy the specific criteria (users iniate with 'M')
+            Assert.IsTrue(returnedStudyGroups.All(sg => sg.Users.Any(u => u.Name.StartsWith("M"))));
+        }
+
+        [Test]
+        public async Task GetFilteredAndSortedStudyGroups_ReturnsFilteredAndSortedStudyGroups()
+        {
+            // Arrange
+            var mockStudyGroups = new List<StudyGroup>
+    {
+        new StudyGroup { StudyGroupId = 1, Name = "Group A", Subject = Subject.Math, CreateDate = DateTime.Now.AddDays(-1), Users = new List<User>() },
+        new StudyGroup { StudyGroupId = 2, Name = "Group B", Subject = Subject.Math, CreateDate = DateTime.Now, Users = new List<User>() },
+        new StudyGroup { StudyGroupId = 3, Name = "Group C", Subject = Subject.Chemistry, CreateDate = DateTime.Now.AddDays(-2), Users = new List<User>() }
+    };
+
+            _mockRepository.Setup(repo => repo.GetStudyGroups())
+                .ReturnsAsync(mockStudyGroups);
+
+            string subjectFilter = "Math";
+            bool sortByCreationDateDescending = true;
+
+            // Act
+            var result = await _controller.GetFilteredAndSortedStudyGroups(subjectFilter, sortByCreationDateDescending);
+
+            // Assert
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            var returnedStudyGroups = okResult.Value as List<StudyGroup>;
+            Assert.IsNotNull(returnedStudyGroups);
+            Assert.AreEqual(2, returnedStudyGroups.Count); // Verify is just Math groups are returned
+            Assert.IsTrue(returnedStudyGroups[0].CreateDate > returnedStudyGroups[1].CreateDate); // Verify if groups return date by creation in unecessary form
+
+        }
+
+        [Test]
+        public async Task GetFilteredAndSortedStudyGroups_WhenSortedAscending_ReturnsStudyGroupsSortedByCreationDateAscending()
+        {
+            // Arrange
+            var mockStudyGroups = new List<StudyGroup>
+    {
+        new StudyGroup { StudyGroupId = 1, Name = "Grupo A", Subject = Subject.Math, CreateDate = DateTime.Now.AddDays(-1), Users = new List<User>() },
+        new StudyGroup { StudyGroupId = 2, Name = "Grupo B", Subject = Subject.Math, CreateDate = DateTime.Now, Users = new List<User>() },
+        new StudyGroup { StudyGroupId = 3, Name = "Grupo C", Subject = Subject.Chemistry, CreateDate = DateTime.Now.AddDays(-2), Users = new List<User>() }
+    };
+
+            _mockRepository.Setup(repo => repo.GetStudyGroups())
+                .ReturnsAsync(mockStudyGroups);
+
+            string subjectFilter = "Math";
+            bool sortByCreationDateDescending = false; // Testing asc ordenation
+
+            // Act
+            var result = await _controller.GetFilteredAndSortedStudyGroups(subjectFilter, sortByCreationDateDescending);
+
+            // Assert
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            var returnedStudyGroups = okResult.Value as List<StudyGroup>;
+            Assert.IsNotNull(returnedStudyGroups);
+            Assert.AreEqual(2, returnedStudyGroups.Count); // Verify if just Math Groups Returned
+            Assert.IsTrue(returnedStudyGroups[0].CreateDate < returnedStudyGroups[1].CreateDate); // Verifica se os grupos de estudo estão ordenados por data de criação de forma ascendente
+        }
+
+        [Test]
+        public async Task CreateStudyGroup_WhenRepositoryThrowsException_ReturnsBadRequestWithExceptionMessage()
+        {
+            // Arrange
+            var studyGroupDto = new StudyGroupCreationDto
+            {
+                UserId = 1,
+                Name = "Math Group",
+                Subject = Subject.Math
+            };
+
+            var exceptionMessage = "Error study group creation.";
+            _mockRepository.Setup(repo => repo.UserAlreadyHasGroupForSubject(studyGroupDto.UserId, studyGroupDto.Subject))
+                           .ThrowsAsync(new Exception(exceptionMessage));
+
+            // Act
+            var result = await _controller.CreateStudyGroup(studyGroupDto);
+
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.IsNotNull(badRequestResult);
+            Assert.AreEqual(exceptionMessage, badRequestResult.Value);
+        }
+
+        [Test]
+        public async Task JoinStudyGroup_WhenStudyGroupNotFound_ReturnsNotFound()
+        {
+            // Arrange
+            int nonExistentStudyGroupId = 999; // ID the represent inexistent group
+            int userId = 1; // User id
+
+            _mockRepository.Setup(repo => repo.GetStudyGroupById(nonExistentStudyGroupId))
+                           .ReturnsAsync((StudyGroup)null); // Configure the rep to return null, simulate a not found group
+
+            // Act
+            var result = await _controller.JoinStudyGroup(nonExistentStudyGroupId, userId);
+
+            // Assert
+            Assert.IsInstanceOf<NotFoundObjectResult>(result); // Verify if result is NotFoundObjectResult
+            var notFoundResult = result as NotFoundObjectResult;
+            Assert.IsNotNull(notFoundResult);
+            Assert.AreEqual("Study group not found.", notFoundResult.Value); // Verify error message
+        }
+
         // Include new tests if necessary
     }
 }
